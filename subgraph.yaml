@@ -1,0 +1,44 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Registry
+    network: goerli
+    source:
+      address: "0xe571ec2C7b94dE72Bc01937a251E48780DEF882A"
+      abi: Registry
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - IdentityCreated
+        - IdentityMetadataUpdated
+        - IdentityNameUpdated
+        - IdentityOwnerUpdated
+        - IdentityPendingOwnerUpdated
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+      abis:
+        - name: Registry
+          file: ./abis/Registry.json
+      eventHandlers:
+        - event: IdentityCreated(indexed bytes32,uint256,string,(uint256,string),address,address)
+          handler: handleIdentityCreated
+        - event: IdentityMetadataUpdated(indexed bytes32,(uint256,string))
+          handler: handleIdentityMetadataUpdated
+        - event: IdentityNameUpdated(indexed bytes32,string,address)
+          handler: handleIdentityNameUpdated
+        - event: IdentityOwnerUpdated(indexed bytes32,address)
+          handler: handleIdentityOwnerUpdated
+        - event: IdentityPendingOwnerUpdated(indexed bytes32,address)
+          handler: handleIdentityPendingOwnerUpdated
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+      file: ./src/registry.ts
