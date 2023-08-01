@@ -10,79 +10,96 @@ import {
   RoleGranted,
   RoleRevoked
 } from "../generated/Registry/Registry"
-import { ExampleEntity } from "../generated/schema"
+import { Profile } from "../generated/schema"
+import { _upsertAccount } from "./utils"
 
 export function handleIdentityCreated(event: IdentityCreated): void {
   // Entities can be loaded from the store using a string ID; this ID
   // needs to be unique across all entities of the same type
-  let entity = ExampleEntity.load(event.transaction.from.toHex())
 
-  // Entities only exist after they have been saved to the store;
-  // `null` checks allow to create entities on demand
-  if (!entity) {
-    entity = new ExampleEntity(event.transaction.from.toHex())
+  // create new Metadata entity
+  const _metadata = event.params.metadata
+  const metadataId = event.transaction.hash
+  const metadata = new Metadata(metadataId)
+  metadata.protocol = _metadata[0].toI32()
+  metadata.pointer = _metadata[1].toString()
+  metadata.save()
 
-    // Entity fields can be set using simple assignments
-    entity.count = BigInt.fromI32(0)
-  }
+  // upsert new account
+  const accountId = _upsertAccount(event.params.owner)
 
-  // BigInt and BigDecimal math are supported
-  entity.count = entity.count + BigInt.fromI32(1)
+  // create new Profile entity
+  const profileEntity = new Profile(event.transaction.from)
+  profileEntity.identityId = event.params.identityId
+  profileEntity.nonce = event.params.nonce
+  profileEntity.owner = accountId
+  profileEntity.metadata = metadataId
 
-  // Entity fields can be set based on event parameters
-  entity.identityId = event.params.identityId
-  entity.nonce = event.params.nonce
-
-  // Entities can be written to the store with `.save()`
-  entity.save()
-
-  // Note: If a handler doesn't require existing field values, it is faster
-  // _not_ to load the entity from the store. Instead, create it fresh with
-  // `new Entity(...)`, set the fields that should be updated and save the
-  // entity back to the store. Fields that were not set or unset remain
-  // unchanged, allowing for partial updates to be applied.
-
-  // It is also possible to access smart contracts from mappings. For
-  // example, the contract that has emitted the event can be connected to
-  // with:
-  //
-  // let contract = Contract.bind(event.address)
-  //
-  // The following functions can then be called on this contract to access
-  // state variables and other data:
-  //
-  // - contract.ALLO_OWNER(...)
-  // - contract.DEFAULT_ADMIN_ROLE(...)
-  // - contract.NATIVE(...)
-  // - contract.anchorToIdentityId(...)
-  // - contract.createIdentity(...)
-  // - contract.getIdentityByAnchor(...)
-  // - contract.getIdentityById(...)
-  // - contract.getRoleAdmin(...)
-  // - contract.hasRole(...)
-  // - contract.identitiesById(...)
-  // - contract.identityIdToPendingOwner(...)
-  // - contract.isMemberOfIdentity(...)
-  // - contract.isOwnerOfIdentity(...)
-  // - contract.isOwnerOrMemberOfIdentity(...)
-  // - contract.supportsInterface(...)
-  // - contract.updateIdentityName(...)
+  profileEntity.save()
 }
 
 export function handleIdentityMetadataUpdated(
   event: IdentityMetadataUpdated
-): void {}
+): void {
+  const profileId = event.transaction.from
+  const profile = Profile.load(profileId)
+  if (profile == null) {
+    return
+  }
+  
+  // create new MetaPtr entity
+  const metadataId = event.transaction.hash
+  const _metadata = event.params.metadata
+  const metadata = new Metadata(metadataId)
+  metadata.protocol = _metadata[0].toI32()
+  metadata.pointer = _metadata[1].toString()
+  metadata.save()
 
-export function handleIdentityNameUpdated(event: IdentityNameUpdated): void {}
+  profile.metadata = metadataId
+  profile.save()
+}
 
-export function handleIdentityOwnerUpdated(event: IdentityOwnerUpdated): void {}
+export function handleIdentityNameUpdated(event: IdentityNameUpdated): void {
+  const identityId = event.params.identityId
+  const profile = Profile.load(identityId)
+  if (profile == null) {
+    return
+  }
+  profile.name = event.params.name
+  profile.anchor = event.params.anchor
+  profile.save()
+}
 
-export function handleIdentityPendingOwnerUpdated(
-  event: IdentityPendingOwnerUpdated
-): void {}
+export function handleIdentityOwnerUpdated(event: IdentityOwnerUpdated): void {
+  const identityId = event.params.identityId
+  const profile = Profile.load(identityId)
+  if (profile == null) {
+    return
+  }
+  profile.owner = event.params.owner
+  profile.save()
+}
 
-export function handleRoleAdminChanged(event: RoleAdminChanged): void {}
+export function handleRoleGranted(event: RoleGranted): void {
+  // const id = event.params.role
 
-export function handleRoleGranted(event: RoleGranted): void {}
+  // const accountId = _upsertAccount(id)
+  // const profile = Profile.load(id)
+  // if (!profile) {
+  //   return
+  // }
 
-export function handleRoleRevoked(event: RoleRevoked): void {}
+  // profile.members.push(accountId)
+  // TODO
+}
+
+export function handleRoleRevoked(event: RoleRevoked): void {
+  // const id = event.params.role
+
+  // const accountId = _upsertAccount(id)
+  // const profile = Profile.load(id)
+  // if (!profile) {
+  //   return
+  // }
+  // TODO
+}

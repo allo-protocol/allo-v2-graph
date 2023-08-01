@@ -1,6 +1,56 @@
-type ExampleEntity @entity {
+#########################
+# == Helper Entities == #
+#########################
+
+type Metadata @entity {
   id: ID!
-  count: BigInt!
-  identityId: Bytes! # bytes32
-  nonce: BigInt! # uint256
+  protocol: Int,
+  pointer: String
+}
+
+type Account @entity {
+  id: ID!
+}
+
+########################
+# ===== Registry ===== #
+########################
+
+# id = profileId
+type Profile @entity {
+  id: ID!
+  poolId: ID!
+  name: String!
+  metadata: Metadata!
+  anchor: Bytes!
+  profileId: Bytes!
+  nonce: BigInt!
+  owner: Account!
+  members: [Account!]
+}
+
+####################
+# ===== Allo ===== #
+####################
+
+# id = 0
+type Allo @entity {
+  id: ID!
+  feePercentage: BigInt!
+  baseFee: BigInt!
+  treasury: Bytes!
+  cloneableStrategies: [Bytes!]
+}
+
+# id = poolId
+type Pool @entity {
+  id: ID!
+  allo: Allo!
+  token: Bytes!
+  strategy: Bytes!
+  metadata: Metadata!
+  adminRole: Bytes!
+  managerRole: Bytes!
+  owner: Account!
+  members: [Account!]
 }

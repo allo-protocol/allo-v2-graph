@@ -9,7 +9,7 @@ import {
 import { Bytes, BigInt, Address } from "@graphprotocol/graph-ts"
 import { ExampleEntity } from "../generated/schema"
 import { IdentityCreated } from "../generated/Registry/Registry"
-import { handleIdentityCreated } from "../src/registry"
+import { handleIdentityCreated } from "../../src/registry"
 import { createIdentityCreatedEvent } from "./registry-utils"
 
 // Tests structure (matchstick-as >=0.5.0)

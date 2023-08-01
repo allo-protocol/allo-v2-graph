@@ -1,0 +1,115 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  # Registry
+  - kind: ethereum
+    name: Registry
+    network: {{network}}
+    source:
+      address: '{{registryAddress}}'
+      abi: Registry
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - IdentityCreated
+        - IdentityMetadataUpdated
+        - IdentityNameUpdated
+        - IdentityOwnerUpdated
+        - IdentityPendingOwnerUpdated
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+      abis:
+        - name: Registry
+          file: ./abis/Registry.json
+      eventHandlers:
+        - event: IdentityCreated(indexed bytes32,uint256,string,(uint256,string),address,address)
+          handler: handleIdentityCreated
+        - event: IdentityMetadataUpdated(indexed bytes32,(uint256,string))
+          handler: handleIdentityMetadataUpdated
+        - event: IdentityNameUpdated(indexed bytes32,string,address)
+          handler: handleIdentityNameUpdated
+        - event: IdentityOwnerUpdated(indexed bytes32,address)
+          handler: handleIdentityOwnerUpdated
+        - event: IdentityPendingOwnerUpdated(indexed bytes32,address)
+          handler: handleIdentityPendingOwnerUpdated
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+      file: ./src/registry.ts
+  # Allo
+  - kind: ethereum
+    name: Allo
+    network: {{network}}
+    source:
+      address: '{{alloAddress}}'
+      abi: Allo
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - BaseFeePaid
+        - BaseFeeUpdated
+        - FeePercentageUpdated
+        - Initialized
+        - OwnershipHandoverCanceled
+        - OwnershipHandoverRequested
+        - OwnershipTransferred
+        - PoolCreated
+        - PoolFunded
+        - PoolMetadataUpdated
+        - RegistryUpdated
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - StrategyApproved
+        - StrategyRemoved
+        - TreasuryUpdated
+      abis:
+        - name: Allo
+          file: ./abis/Allo.json
+      eventHandlers:
+        - event: BaseFeePaid(indexed uint256,uint256)
+          handler: handleBaseFeePaid
+        - event: BaseFeeUpdated(uint256)
+          handler: handleBaseFeeUpdated
+        - event: FeePercentageUpdated(uint256)
+          handler: handleFeePercentageUpdated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipHandoverCanceled(indexed address)
+          handler: handleOwnershipHandoverCanceled
+        - event: OwnershipHandoverRequested(indexed address)
+          handler: handleOwnershipHandoverRequested
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PoolCreated(indexed uint256,indexed bytes32,address,address,uint256,(uint256,string))
+          handler: handlePoolCreated
+        - event: PoolFunded(indexed uint256,uint256,uint256)
+          handler: handlePoolFunded
+        - event: PoolMetadataUpdated(indexed uint256,(uint256,string))
+          handler: handlePoolMetadataUpdated
+        - event: RegistryUpdated(address)
+          handler: handleRegistryUpdated
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: StrategyApproved(address)
+          handler: handleStrategyApproved
+        - event: StrategyRemoved(address)
+          handler: handleStrategyRemoved
+        - event: TreasuryUpdated(address)
+          handler: handleTreasuryUpdated
+      file: ./src/allo.ts
