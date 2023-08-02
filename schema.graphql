@@ -49,6 +49,7 @@ type Profile @entity {
 # id = 0
 type Allo @entity {
   id: ID!
+  registry: Bytes!
   feePercentage: BigInt!
   baseFee: BigInt!
   treasury: Bytes!
@@ -60,6 +61,7 @@ type Pool @entity {
   id: ID!
   allo: Allo!
   token: Bytes!
+  amount : BigInt!
   strategy: Bytes!
   metadata: Metadata!
   adminRole: Bytes!

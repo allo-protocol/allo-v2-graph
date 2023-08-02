@@ -1,16 +1,41 @@
 import { crypto} from '@graphprotocol/graph-ts'
 import { ByteArray } from '@graphprotocol/graph-ts';
-import { Account, Role, RoleAccount } from '../generated/schema';
+import {
+  Account,
+  Metadata,
+  Role,
+  RoleAccount,
+  Allo
+} from '../generated/schema';
 
 /**
  * Returns keccak256 of array after elements are joined by '-'
  * @param Array<string>
  * @returns keccak256
  */
-export function generateID(array: Array<string>): string {
+export function _generateID(array: Array<string>): string {
   return crypto.keccak256(
     ByteArray.fromUTF8(array.join('-'))
   ).toBase58();
+}
+
+export function _upsertMetadata(
+  metadataParam: any
+): string {
+
+  const protocol = metadataParam[0].toI32()
+  const pointer = metadataParam[1].toString()
+
+  const metadataId = _generateID([
+    protocol.toString(),
+    pointer.toString()
+  ])
+  const metadataEntity = new Metadata(metadataId)
+  metadataEntity.protocol = protocol
+  metadataEntity.pointer = pointer
+  metadataEntity.save()
+
+  return metadataId;
 }
 
 /**
@@ -56,4 +81,16 @@ export function _upsertRoleAccount(roleId: string, accountId: string): string {
     roleAccountEntity.save()
   }
   return id;
+}
+
+/**
+ * Checks if Allo exists, if not creates new Allo
+ * @returns Allo
+ */
+export function _upsertAllo(): Allo {
+  let alloEntity = Allo.load('0')
+  if (alloEntity == null) {
+    alloEntity = new Allo('0')
+  }
+  return alloEntity;
 }

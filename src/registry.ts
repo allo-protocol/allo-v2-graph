@@ -12,7 +12,7 @@ import {
   RoleRevoked
 } from "../generated/Registry/Registry"
 import { Profile, Metadata, RoleAccount } from "../generated/schema"
-import { _upsertAccount, _upsertRole, _upsertRoleAccount, generateID } from "./utils"
+import { _upsertAccount, _upsertMetadata, _upsertMetdata, _upsertRole, _upsertRoleAccount } from "./utils"
 
 export function handleProfileCreated(event: ProfileCreated): void {
 
@@ -57,12 +57,7 @@ export function handleProfileMetadataUpdated(
   }
 
   // create new MetaPtr entity
-  const metadataId = event.transaction.hash
-  const _metadata = event.params.metadata
-  const metadataEntity = new Metadata(metadataId)
-  metadataEntity.protocol = _metadata[0].toI32()
-  metadataEntity.pointer = _metadata[1].toString()
-  metadataEntity.save()
+  const metadataId =_upsertMetadata(event.params.metadata)
 
   profileEntity.metadata = metadataId
 

@@ -1,7 +1,6 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { store} from '@graphprotocol/graph-ts'
 import {
   Allo,
-  BaseFeePaid,
   BaseFeeUpdated,
   FeePercentageUpdated,
   Initialized,
@@ -19,99 +18,120 @@ import {
   StrategyRemoved,
   TreasuryUpdated
 } from "../generated/Allo/Allo"
-import { ExampleEntity } from "../generated/schema"
+import { Allo, Pool } from "../generated/schema"
+import { _upsertAccount, _upsertAllo, _upsertMetadata, _upsertRole, _upsertRoleAccount } from "./utils"
 
-export function handleBaseFeePaid(event: BaseFeePaid): void {
-  // Entities can be loaded from the store using a string ID; this ID
-  // needs to be unique across all entities of the same type
-  let entity = ExampleEntity.load(event.transaction.from.toHex())
 
-  // Entities only exist after they have been saved to the store;
-  // `null` checks allow to create entities on demand
-  if (!entity) {
-    entity = new ExampleEntity(event.transaction.from.toHex())
-
-    // Entity fields can be set using simple assignments
-    entity.count = BigInt.fromI32(0)
-  }
-
-  // BigInt and BigDecimal math are supported
-  entity.count = entity.count + BigInt.fromI32(1)
-
-  // Entity fields can be set based on event parameters
-  entity.poolId = event.params.poolId
-  entity.amount = event.params.amount
-
-  // Entities can be written to the store with `.save()`
-  entity.save()
-
-  // Note: If a handler doesn't require existing field values, it is faster
-  // _not_ to load the entity from the store. Instead, create it fresh with
-  // `new Entity(...)`, set the fields that should be updated and save the
-  // entity back to the store. Fields that were not set or unset remain
-  // unchanged, allowing for partial updates to be applied.
-
-  // It is also possible to access smart contracts from mappings. For
-  // example, the contract that has emitted the event can be connected to
-  // with:
-  //
-  // let contract = Contract.bind(event.address)
-  //
-  // The following functions can then be called on this contract to access
-  // state variables and other data:
-  //
-  // - contract.DEFAULT_ADMIN_ROLE(...)
-  // - contract.FEE_DENOMINATOR(...)
-  // - contract.NATIVE(...)
-  // - contract.batchRegisterRecipient(...)
-  // - contract.getBaseFee(...)
-  // - contract.getFeePercentage(...)
-  // - contract.getPool(...)
-  // - contract.getRegistry(...)
-  // - contract.getRoleAdmin(...)
-  // - contract.getStrategy(...)
-  // - contract.getTreasury(...)
-  // - contract.hasRole(...)
-  // - contract.isCloneableStrategy(...)
-  // - contract.isPoolAdmin(...)
-  // - contract.isPoolManager(...)
-  // - contract.owner(...)
-  // - contract.ownershipHandoverExpiresAt(...)
-  // - contract.supportsInterface(...)
+export function handleRegistryUpdated(event: RegistryUpdated): void {
+  const allo = _upsertAllo()
+  allo.registry = event.params.registry
+  allo.save()
 }
 
-export function handleBaseFeeUpdated(event: BaseFeeUpdated): void {}
+export function handleTreasuryUpdated(event: TreasuryUpdated): void {
+  const allo = _upsertAllo()
+  allo.treasury = event.params.treasury
+  allo.save()
+}
 
-export function handleFeePercentageUpdated(event: FeePercentageUpdated): void {}
+export function handleBaseFeeUpdated(event: BaseFeeUpdated): void {
+  const allo = _upsertAllo()
+  allo.baseFee = event.params.baseFee
+  allo.save()
+}
 
-export function handleInitialized(event: Initialized): void {}
+export function handleFeePercentageUpdated(event: FeePercentageUpdated): void {
+  const allo = _upsertAllo()
+  allo.feePercentage = event.params.feePercentage
+  allo.save()
+}
 
-export function handleOwnershipHandoverCanceled(
-  event: OwnershipHandoverCanceled
-): void {}
+export function handleStrategyApproved(event: StrategyApproved): void {
+  const allo = _upsertAllo()
+  allo.cloneableStrategies.push(event.params.strategy)
+  allo.save()
+}
 
-export function handleOwnershipHandoverRequested(
-  event: OwnershipHandoverRequested
-): void {}
+export function handleStrategyRemoved(event: StrategyRemoved): void {
+  const allo = _upsertAllo()
+  for(let i = 0; i < allo.cloneableStrategies.length; i++) {
+    if (allo.cloneableStrategies[i] == event.params.strategy) {
+      allo.cloneableStrategies.splice(i, 1)
+      allo.save()
+      return
+    }
+  }
+}
 
-export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
+export function handlePoolCreated(event: PoolCreated): void {
 
-export function handlePoolCreated(event: PoolCreated): void {}
+  // create new MetaPtr entity
+  const metadataId = _upsertMetadata(event.params.metadata)
+  const poolId = event.params.poolId
 
-export function handlePoolFunded(event: PoolFunded): void {}
+  const pool = new Pool(poolId)
+  pool.allo = _upsertAllo().id
+  pool.strategy = event.params.strategy
+  pool.metadata = metadataId
+  pool.token = event.params.token
+  pool.amount = event.params.amount
 
-export function handlePoolMetadataUpdated(event: PoolMetadataUpdated): void {}
+  // TODO: fix the roles / fetch from contract directly
+  pool.adminRole = poolId // bytes32(poolId)
+  pool.managerRole = poolId// keccak256(abi.encodePacked(poolId, "admin"))
 
-export function handleRegistryUpdated(event: RegistryUpdated): void {}
+  pool.createdAt = event.block.timestamp
+  pool.updatedAt = event.block.timestamp
 
-export function handleRoleAdminChanged(event: RoleAdminChanged): void {}
+  pool.save()
+}
 
-export function handleRoleGranted(event: RoleGranted): void {}
+export function handlePoolFunded(event: PoolFunded): void {
+  const pool = Pool.load(event.params.poolId)
+  if (pool == null) {
+    return
+  }
+  pool.amount += event.params.amount
+  pool.updatedAt = event.block.timestamp
+  pool.save()
+}
 
-export function handleRoleRevoked(event: RoleRevoked): void {}
+export function handlePoolMetadataUpdated(event: PoolMetadataUpdated): void {
+  const pool = Pool.load(event.params.poolId)
+  if (pool == null) {
+    return
+  }
 
-export function handleStrategyApproved(event: StrategyApproved): void {}
+  // create new MetaPtr entity
+  const metadataId = _upsertMetadata(event.params.metadata);
 
-export function handleStrategyRemoved(event: StrategyRemoved): void {}
+  pool.metadata = metadataId
+  pool.updatedAt = event.block.timestamp
+  pool.save()
+}
 
-export function handleTreasuryUpdated(event: TreasuryUpdated): void {}
+
+export function handleRoleAdminChanged(event: RoleAdminChanged): void {
+  // TODO: check if this is needed cause this ideally wouldn't change
+}
+
+// TODO: figure out how to track who the Pool admin is set / changed
+export function handleRoleGranted(event: RoleGranted): void {
+  const roleParam = event.params.role
+  const accountParam = event.params.account
+
+  // upsert entities
+  const roleId = _upsertRole(roleParam)
+  const accountId = _upsertAccount(accountParam)
+  // create join entity
+  const roleAccountId = _upsertRoleAccount(roleId, accountId)
+}
+
+export function handleRoleRevoked(event: RoleRevoked): void {
+  const roleParam = event.params.role
+  const accountParam = event.params.account
+
+  const roleAccountId = _upsertRoleAccount(roleParam, accountParam)
+  store.remove('RoleAccount', roleAccountId)
+}
+
