@@ -1,23 +1,47 @@
 [
   {
     "inputs": [
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
-  { "inputs": [], "name": "AMOUNT_MISMATCH", "type": "error" },
-  { "inputs": [], "name": "NONCE_NOT_AVAILABLE", "type": "error" },
-  { "inputs": [], "name": "NOT_PENDING_OWNER", "type": "error" },
-  { "inputs": [], "name": "UNAUTHORIZED", "type": "error" },
-  { "inputs": [], "name": "ZERO_ADDRESS", "type": "error" },
+  {
+    "inputs": [],
+    "name": "AMOUNT_MISMATCH",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NONCE_NOT_AVAILABLE",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NOT_PENDING_OWNER",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "UNAUTHORIZED",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZERO_ADDRESS",
+    "type": "error"
+  },
   {
     "anonymous": false,
     "inputs": [
       {
         "indexed": true,
         "internalType": "bytes32",
-        "name": "identityId",
+        "name": "profileId",
         "type": "bytes32"
       },
       {
@@ -34,8 +58,16 @@
       },
       {
         "components": [
-          { "internalType": "uint256", "name": "protocol", "type": "uint256" },
-          { "internalType": "string", "name": "pointer", "type": "string" }
+          {
+            "internalType": "uint256",
+            "name": "protocol",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "pointer",
+            "type": "string"
+          }
         ],
         "indexed": false,
         "internalType": "struct Metadata",
@@ -55,7 +87,7 @@
         "type": "address"
       }
     ],
-    "name": "IdentityCreated",
+    "name": "ProfileCreated",
     "type": "event"
   },
   {
@@ -64,13 +96,21 @@
       {
         "indexed": true,
         "internalType": "bytes32",
-        "name": "identityId",
+        "name": "profileId",
         "type": "bytes32"
       },
       {
         "components": [
-          { "internalType": "uint256", "name": "protocol", "type": "uint256" },
-          { "internalType": "string", "name": "pointer", "type": "string" }
+          {
+            "internalType": "uint256",
+            "name": "protocol",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "pointer",
+            "type": "string"
+          }
         ],
         "indexed": false,
         "internalType": "struct Metadata",
@@ -78,7 +118,7 @@
         "type": "tuple"
       }
     ],
-    "name": "IdentityMetadataUpdated",
+    "name": "ProfileMetadataUpdated",
     "type": "event"
   },
   {
@@ -87,7 +127,7 @@
       {
         "indexed": true,
         "internalType": "bytes32",
-        "name": "identityId",
+        "name": "profileId",
         "type": "bytes32"
       },
       {
@@ -103,7 +143,7 @@
         "type": "address"
       }
     ],
-    "name": "IdentityNameUpdated",
+    "name": "ProfileNameUpdated",
     "type": "event"
   },
   {
@@ -112,7 +152,7 @@
       {
         "indexed": true,
         "internalType": "bytes32",
-        "name": "identityId",
+        "name": "profileId",
         "type": "bytes32"
       },
       {
@@ -122,7 +162,7 @@
         "type": "address"
       }
     ],
-    "name": "IdentityOwnerUpdated",
+    "name": "ProfileOwnerUpdated",
     "type": "event"
   },
   {
@@ -131,7 +171,7 @@
       {
         "indexed": true,
         "internalType": "bytes32",
-        "name": "identityId",
+        "name": "profileId",
         "type": "bytes32"
       },
       {
@@ -141,7 +181,7 @@
         "type": "address"
       }
     ],
-    "name": "IdentityPendingOwnerUpdated",
+    "name": "ProfilePendingOwnerUpdated",
     "type": "event"
   },
   {
@@ -222,37 +262,67 @@
   {
     "inputs": [],
     "name": "ALLO_OWNER",
-    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "DEFAULT_ADMIN_ROLE",
-    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "NATIVE",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "_identityId", "type": "bytes32" }
+      {
+        "internalType": "bytes32",
+        "name": "_profileId",
+        "type": "bytes32"
+      }
     ],
-    "name": "acceptIdentityOwnership",
+    "name": "acceptProfileOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "_identityId", "type": "bytes32" },
-      { "internalType": "address[]", "name": "_members", "type": "address[]" }
+      {
+        "internalType": "bytes32",
+        "name": "_profileId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_members",
+        "type": "address[]"
+      }
     ],
     "name": "addMembers",
     "outputs": [],
@@ -260,44 +330,102 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "anchorToIdentityId",
-    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "anchorToProfileId",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_nonce", "type": "uint256" },
-      { "internalType": "string", "name": "_name", "type": "string" },
+      {
+        "internalType": "uint256",
+        "name": "_nonce",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
       {
         "components": [
-          { "internalType": "uint256", "name": "protocol", "type": "uint256" },
-          { "internalType": "string", "name": "pointer", "type": "string" }
+          {
+            "internalType": "uint256",
+            "name": "protocol",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "pointer",
+            "type": "string"
+          }
         ],
         "internalType": "struct Metadata",
         "name": "_metadata",
         "type": "tuple"
       },
-      { "internalType": "address", "name": "_owner", "type": "address" },
-      { "internalType": "address[]", "name": "_members", "type": "address[]" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_members",
+        "type": "address[]"
+      }
     ],
-    "name": "createIdentity",
-    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "name": "createProfile",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_anchor", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_anchor",
+        "type": "address"
+      }
     ],
-    "name": "getIdentityByAnchor",
+    "name": "getProfileByAnchor",
     "outputs": [
       {
         "components": [
-          { "internalType": "bytes32", "name": "id", "type": "bytes32" },
-          { "internalType": "uint256", "name": "nonce", "type": "uint256" },
-          { "internalType": "string", "name": "name", "type": "string" },
+          {
+            "internalType": "bytes32",
+            "name": "id",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint256",
+            "name": "nonce",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
           {
             "components": [
               {
@@ -305,16 +433,28 @@
                 "name": "protocol",
                 "type": "uint256"
               },
-              { "internalType": "string", "name": "pointer", "type": "string" }
+              {
+                "internalType": "string",
+                "name": "pointer",
+                "type": "string"
+              }
             ],
             "internalType": "struct Metadata",
             "name": "metadata",
             "type": "tuple"
           },
-          { "internalType": "address", "name": "owner", "type": "address" },
-          { "internalType": "address", "name": "anchor", "type": "address" }
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "anchor",
+            "type": "address"
+          }
         ],
-        "internalType": "struct IRegistry.Identity",
+        "internalType": "struct IRegistry.Profile",
         "name": "",
         "type": "tuple"
       }
@@ -324,15 +464,31 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "identityId", "type": "bytes32" }
+      {
+        "internalType": "bytes32",
+        "name": "profileId",
+        "type": "bytes32"
+      }
     ],
-    "name": "getIdentityById",
+    "name": "getProfileById",
     "outputs": [
       {
         "components": [
-          { "internalType": "bytes32", "name": "id", "type": "bytes32" },
-          { "internalType": "uint256", "name": "nonce", "type": "uint256" },
-          { "internalType": "string", "name": "name", "type": "string" },
+          {
+            "internalType": "bytes32",
+            "name": "id",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint256",
+            "name": "nonce",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
           {
             "components": [
               {
@@ -340,16 +496,28 @@
                 "name": "protocol",
                 "type": "uint256"
               },
-              { "internalType": "string", "name": "pointer", "type": "string" }
+              {
+                "internalType": "string",
+                "name": "pointer",
+                "type": "string"
+              }
             ],
             "internalType": "struct Metadata",
             "name": "metadata",
             "type": "tuple"
           },
-          { "internalType": "address", "name": "owner", "type": "address" },
-          { "internalType": "address", "name": "anchor", "type": "address" }
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "anchor",
+            "type": "address"
+          }
         ],
-        "internalType": "struct IRegistry.Identity",
+        "internalType": "struct IRegistry.Profile",
         "name": "",
         "type": "tuple"
       }
@@ -359,17 +527,35 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "role", "type": "bytes32" }
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      }
     ],
     "name": "getRoleAdmin",
-    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
-      { "internalType": "address", "name": "account", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
     ],
     "name": "grantRole",
     "outputs": [],
@@ -378,77 +564,187 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
-      { "internalType": "address", "name": "account", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
     ],
     "name": "hasRole",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "name": "identitiesById",
     "outputs": [
-      { "internalType": "bytes32", "name": "id", "type": "bytes32" },
-      { "internalType": "uint256", "name": "nonce", "type": "uint256" },
-      { "internalType": "string", "name": "name", "type": "string" },
+      {
+        "internalType": "bytes32",
+        "name": "id",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
       {
         "components": [
-          { "internalType": "uint256", "name": "protocol", "type": "uint256" },
-          { "internalType": "string", "name": "pointer", "type": "string" }
+          {
+            "internalType": "uint256",
+            "name": "protocol",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "pointer",
+            "type": "string"
+          }
         ],
         "internalType": "struct Metadata",
         "name": "metadata",
         "type": "tuple"
       },
-      { "internalType": "address", "name": "owner", "type": "address" },
-      { "internalType": "address", "name": "anchor", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "anchor",
+        "type": "address"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
-    "name": "identityIdToPendingOwner",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
-      { "internalType": "bytes32", "name": "_identityId", "type": "bytes32" },
-      { "internalType": "address", "name": "_member", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "_profileId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "_member",
+        "type": "address"
+      }
     ],
-    "name": "isMemberOfIdentity",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "bytes32", "name": "_identityId", "type": "bytes32" },
-      { "internalType": "address", "name": "_owner", "type": "address" }
+    "name": "isMemberOfProfile",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
     ],
-    "name": "isOwnerOfIdentity",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "_identityId", "type": "bytes32" },
-      { "internalType": "address", "name": "_account", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "_profileId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
     ],
-    "name": "isOwnerOrMemberOfIdentity",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "name": "isOwnerOfProfile",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_token", "type": "address" },
-      { "internalType": "address", "name": "_recipient", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "_profileId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "_account",
+        "type": "address"
+      }
+    ],
+    "name": "isOwnerOrMemberOfProfile",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "profileIdToPendingOwner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_recipient",
+        "type": "address"
+      }
     ],
     "name": "recoverFunds",
     "outputs": [],
@@ -457,8 +753,16 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "_identityId", "type": "bytes32" },
-      { "internalType": "address[]", "name": "_members", "type": "address[]" }
+      {
+        "internalType": "bytes32",
+        "name": "_profileId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_members",
+        "type": "address[]"
+      }
     ],
     "name": "removeMembers",
     "outputs": [],
@@ -467,8 +771,16 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
-      { "internalType": "address", "name": "account", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
     ],
     "name": "renounceRole",
     "outputs": [],
@@ -477,8 +789,16 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
-      { "internalType": "address", "name": "account", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
     ],
     "name": "revokeRole",
     "outputs": [],
@@ -487,47 +807,91 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes4", "name": "interfaceId", "type": "bytes4" }
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
     ],
     "name": "supportsInterface",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "_identityId", "type": "bytes32" },
+      {
+        "internalType": "bytes32",
+        "name": "_profileId",
+        "type": "bytes32"
+      },
       {
         "components": [
-          { "internalType": "uint256", "name": "protocol", "type": "uint256" },
-          { "internalType": "string", "name": "pointer", "type": "string" }
+          {
+            "internalType": "uint256",
+            "name": "protocol",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "pointer",
+            "type": "string"
+          }
         ],
         "internalType": "struct Metadata",
         "name": "_metadata",
         "type": "tuple"
       }
     ],
-    "name": "updateIdentityMetadata",
+    "name": "updateProfileMetadata",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "_identityId", "type": "bytes32" },
-      { "internalType": "string", "name": "_name", "type": "string" }
+      {
+        "internalType": "bytes32",
+        "name": "_profileId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      }
     ],
-    "name": "updateIdentityName",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "updateProfileName",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "_identityId", "type": "bytes32" },
-      { "internalType": "address", "name": "_pendingOwner", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "_profileId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "_pendingOwner",
+        "type": "address"
+      }
     ],
-    "name": "updateIdentityPendingOwner",
+    "name": "updateProfilePendingOwner",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

@@ -1,21 +1,20 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { store } from '@graphprotocol/graph-ts';
+
 import {
   Registry,
-  IdentityCreated,
-  IdentityMetadataUpdated,
-  IdentityNameUpdated,
-  IdentityOwnerUpdated,
-  IdentityPendingOwnerUpdated,
+  ProfileCreated,
+  ProfileMetadataUpdated,
+  ProfileNameUpdated,
+  ProfileOwnerUpdated,
+  ProfilePendingOwnerUpdated,
   RoleAdminChanged,
   RoleGranted,
   RoleRevoked
 } from "../generated/Registry/Registry"
-import { Profile } from "../generated/schema"
-import { _upsertAccount } from "./utils"
+import { Profile, Metadata, RoleAccount } from "../generated/schema"
+import { _upsertAccount, _upsertRole, _upsertRoleAccount, generateID } from "./utils"
 
-export function handleIdentityCreated(event: IdentityCreated): void {
-  // Entities can be loaded from the store using a string ID; this ID
-  // needs to be unique across all entities of the same type
+export function handleProfileCreated(event: ProfileCreated): void {
 
   // create new Metadata entity
   const _metadata = event.params.metadata
@@ -25,81 +24,92 @@ export function handleIdentityCreated(event: IdentityCreated): void {
   metadata.pointer = _metadata[1].toString()
   metadata.save()
 
-  // upsert new account
-  const accountId = _upsertAccount(event.params.owner)
+  const profileId = event.params.profileId
+
+  // create new account
+  const accountEntity = _upsertAccount(event.params.owner);
+
+  // create new role
+  const memberRoleId = _upsertRole(profileId)
 
   // create new Profile entity
-  const profileEntity = new Profile(event.transaction.from)
-  profileEntity.identityId = event.params.identityId
-  profileEntity.nonce = event.params.nonce
-  profileEntity.owner = accountId
+  const profileEntity = new Profile(profileId)
+  profileEntity.name = event.params.name
   profileEntity.metadata = metadataId
+  profileEntity.anchor = event.params.anchor
+  profileEntity.nonce = event.params.nonce
+  profileEntity.owner = accountEntity
+  profileEntity.memberRole = memberRoleId
+
+  profileEntity.createdAt = event.block.timestamp;
+  profileEntity.updatedAt = event.block.timestamp;
 
   profileEntity.save()
 }
 
-export function handleIdentityMetadataUpdated(
-  event: IdentityMetadataUpdated
+export function handleProfileMetadataUpdated(
+  event: ProfileMetadataUpdated
 ): void {
   const profileId = event.transaction.from
-  const profile = Profile.load(profileId)
-  if (profile == null) {
+  const profileEntity = Profile.load(profileId)
+  if (profileEntity == null) {
     return
   }
-  
+
   // create new MetaPtr entity
   const metadataId = event.transaction.hash
   const _metadata = event.params.metadata
-  const metadata = new Metadata(metadataId)
-  metadata.protocol = _metadata[0].toI32()
-  metadata.pointer = _metadata[1].toString()
-  metadata.save()
+  const metadataEntity = new Metadata(metadataId)
+  metadataEntity.protocol = _metadata[0].toI32()
+  metadataEntity.pointer = _metadata[1].toString()
+  metadataEntity.save()
 
-  profile.metadata = metadataId
-  profile.save()
+  profileEntity.metadata = metadataId
+
+  profileEntity.updatedAt = event.block.timestamp;
+
+  profileEntity.save()
 }
 
-export function handleIdentityNameUpdated(event: IdentityNameUpdated): void {
-  const identityId = event.params.identityId
-  const profile = Profile.load(identityId)
-  if (profile == null) {
+export function handleProfileNameUpdated(event: ProfileNameUpdated): void {
+  const profileId = event.params.profileId
+  const profileEntity = Profile.load(profileId)
+  if (profileEntity == null) {
     return
   }
-  profile.name = event.params.name
-  profile.anchor = event.params.anchor
-  profile.save()
+  profileEntity.name = event.params.name
+  profileEntity.anchor = event.params.anchor
+  profileEntity.save()
 }
 
-export function handleIdentityOwnerUpdated(event: IdentityOwnerUpdated): void {
-  const identityId = event.params.identityId
-  const profile = Profile.load(identityId)
-  if (profile == null) {
+export function handleProfileOwnerUpdated(event: ProfileOwnerUpdated): void {
+  const profileId = event.params.profileId
+  const profileEntity = Profile.load(profileId)
+  if (profileEntity == null) {
     return
   }
-  profile.owner = event.params.owner
-  profile.save()
+  profileEntity.owner = event.params.owner
+
+  profileEntity.updatedAt = event.block.timestamp;
+
+  profileEntity.save()
 }
 
 export function handleRoleGranted(event: RoleGranted): void {
-  // const id = event.params.role
+  const roleParam = event.params.role
+  const accountParam = event.params.account
 
-  // const accountId = _upsertAccount(id)
-  // const profile = Profile.load(id)
-  // if (!profile) {
-  //   return
-  // }
-
-  // profile.members.push(accountId)
-  // TODO
+  // upsert entities
+  const roleId = _upsertRole(roleParam)
+  const accountId = _upsertAccount(accountParam)
+  // create join entity
+  const roleAccountId = _upsertRoleAccount(roleId, accountId)
 }
 
 export function handleRoleRevoked(event: RoleRevoked): void {
-  // const id = event.params.role
+  const roleParam = event.params.role
+  const accountParam = event.params.account
 
-  // const accountId = _upsertAccount(id)
-  // const profile = Profile.load(id)
-  // if (!profile) {
-  //   return
-  // }
-  // TODO
+  const roleAccountId = _upsertRoleAccount(roleParam, accountParam)
+  store.remove('RoleAccount', roleAccountId)
 }
