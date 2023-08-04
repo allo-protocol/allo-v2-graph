@@ -1,5 +1,4 @@
 import { Address, ByteArray, Bytes, crypto } from "@graphprotocol/graph-ts";
-import { ProfileMetadataUpdated } from "../generated/Registry/Registry";
 import {
   Account,
   Allo,
@@ -17,7 +16,7 @@ export function _generateID(array: Array<string>): string {
   return crypto.keccak256(ByteArray.fromUTF8(array.join("-"))).toBase58();
 }
 
-export function _upsertMetadata(metadataParam: ProfileMetadataUpdated): string {
+export function _upsertMetadata(metadataParam: any): string {
   const protocol = metadataParam.parameters[0].value.toI32();
   const pointer = metadataParam.parameters[1].value.toString();
 

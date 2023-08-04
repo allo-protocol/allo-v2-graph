@@ -1,4 +1,4 @@
-import { store } from '@graphprotocol/graph-ts';
+import { Bytes, ByteArray, crypto, store } from '@graphprotocol/graph-ts';
 import {
   BaseFeeUpdated,
   FeePercentageUpdated,
@@ -68,7 +68,7 @@ export function handlePoolCreated(event: PoolCreated): void {
   const metadataId = _upsertMetadata(event.params.metadata);
   const poolId = event.params.poolId;
 
-  const pool = new Pool(poolId);
+  const pool = new Pool(poolId.toString());
   pool.allo = _upsertAllo().id;
   pool.strategy = event.params.strategy;
   pool.metadata = metadataId;
@@ -76,8 +76,8 @@ export function handlePoolCreated(event: PoolCreated): void {
   pool.amount = event.params.amount;
 
   // TODO: fix the roles / fetch from contract directly
-  pool.adminRole = poolId; // bytes32(poolId)
-  pool.managerRole = poolId; // keccak256(abi.encodePacked(poolId, "admin"))
+  pool.adminRole = Bytes.fromBigInt(poolId); // bytes32(poolId)
+  pool.managerRole = crypto.keccak256(ByteArray.fromUTF8(poolId, "admin")); // keccak256(abi.encodePacked(poolId, "admin"))
 
   pool.createdAt = event.block.timestamp;
   pool.updatedAt = event.block.timestamp;
@@ -86,17 +86,17 @@ export function handlePoolCreated(event: PoolCreated): void {
 }
 
 export function handlePoolFunded(event: PoolFunded): void {
-  const pool = Pool.load(event.params.poolId);
+  const pool = Pool.load(event.params.poolId.toString());
   if (pool == null) {
     return ;
   }
-  pool.amount += event.params.amount;
+  pool.amount.plus(event.params.amount);
   pool.updatedAt = event.block.timestamp;
   pool.save();
 }
 
 export function handlePoolMetadataUpdated(event: PoolMetadataUpdated): void {
-  const pool = Pool.load(event.params.poolId);
+  const pool = Pool.load(event.params.poolId.toString());
   if (pool == null) {
     return ;
   }
