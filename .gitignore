@@ -1,1 +1,9 @@
 node_modules
+
+build/
+generated/
+subgraph.yaml
+/data/
+data
+tests/.bin
+.env

@@ -1,12 +1,7 @@
-import { store} from '@graphprotocol/graph-ts'
+import { store } from '@graphprotocol/graph-ts'
 import {
-  Allo,
   BaseFeeUpdated,
   FeePercentageUpdated,
-  Initialized,
-  OwnershipHandoverCanceled,
-  OwnershipHandoverRequested,
-  OwnershipTransferred,
   PoolCreated,
   PoolFunded,
   PoolMetadataUpdated,
@@ -18,7 +13,7 @@ import {
   StrategyRemoved,
   TreasuryUpdated
 } from "../generated/Allo/Allo"
-import { Allo, Pool } from "../generated/schema"
+import { Pool } from "../generated/schema"
 import { _upsertAccount, _upsertAllo, _upsertMetadata, _upsertRole, _upsertRoleAccount } from "./utils"
 
 
@@ -54,7 +49,7 @@ export function handleStrategyApproved(event: StrategyApproved): void {
 
 export function handleStrategyRemoved(event: StrategyRemoved): void {
   const allo = _upsertAllo()
-  for(let i = 0; i < allo.cloneableStrategies.length; i++) {
+  for (let i = 0; i < allo.cloneableStrategies.length; i++) {
     if (allo.cloneableStrategies[i] == event.params.strategy) {
       allo.cloneableStrategies.splice(i, 1)
       allo.save()

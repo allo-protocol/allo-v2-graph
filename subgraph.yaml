@@ -34,71 +34,71 @@ dataSources:
           handler: handleRoleRevoked
       file: ./src/registry.ts
   # Allo
-  # - kind: ethereum
-  #   name: Allo
-  #   network: goerli
-  #   source:
-  #     address: '0x45F5506b0014cbdc9652854B65eed90E56aB7dA9'
-  #     abi: Allo
-  #     startBlock: 0
-  #   mapping:
-  #     kind: ethereum/events
-  #     apiVersion: 0.0.6
-  #     language: wasm/assemblyscript
-  #     entities:
-  #       - BaseFeePaid
-  #       - BaseFeeUpdated
-  #       - FeePercentageUpdated
-  #       - Initialized
-  #       - OwnershipHandoverCanceled
-  #       - OwnershipHandoverRequested
-  #       - OwnershipTransferred
-  #       - PoolCreated
-  #       - PoolFunded
-  #       - PoolMetadataUpdated
-  #       - RegistryUpdated
-  #       - RoleAdminChanged
-  #       - RoleGranted
-  #       - RoleRevoked
-  #       - StrategyApproved
-  #       - StrategyRemoved
-  #       - TreasuryUpdated
-  #     abis:
-  #       - name: Allo
-  #         file: ./abis/Allo.json
-  #     eventHandlers:
-  #       - event: BaseFeePaid(indexed uint256,uint256)
-  #         handler: handleBaseFeePaid
-  #       - event: BaseFeeUpdated(uint256)
-  #         handler: handleBaseFeeUpdated
-  #       - event: FeePercentageUpdated(uint256)
-  #         handler: handleFeePercentageUpdated
-  #       - event: Initialized(uint8)
-  #         handler: handleInitialized
-  #       - event: OwnershipHandoverCanceled(indexed address)
-  #         handler: handleOwnershipHandoverCanceled
-  #       - event: OwnershipHandoverRequested(indexed address)
-  #         handler: handleOwnershipHandoverRequested
-  #       - event: OwnershipTransferred(indexed address,indexed address)
-  #         handler: handleOwnershipTransferred
-  #       - event: PoolCreated(indexed uint256,indexed bytes32,address,address,uint256,(uint256,string))
-  #         handler: handlePoolCreated
-  #       - event: PoolFunded(indexed uint256,uint256,uint256)
-  #         handler: handlePoolFunded
-  #       - event: PoolMetadataUpdated(indexed uint256,(uint256,string))
-  #         handler: handlePoolMetadataUpdated
-  #       - event: RegistryUpdated(address)
-  #         handler: handleRegistryUpdated
-  #       - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
-  #         handler: handleRoleAdminChanged
-  #       - event: RoleGranted(indexed bytes32,indexed address,indexed address)
-  #         handler: handleRoleGranted
-  #       - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
-  #         handler: handleRoleRevoked
-  #       - event: StrategyApproved(address)
-  #         handler: handleStrategyApproved
-  #       - event: StrategyRemoved(address)
-  #         handler: handleStrategyRemoved
-  #       - event: TreasuryUpdated(address)
-  #         handler: handleTreasuryUpdated
-  #     file: ./src/allo.ts
+  - kind: ethereum
+    name: Allo
+    network: goerli
+    source:
+      address: '0x45F5506b0014cbdc9652854B65eed90E56aB7dA9'
+      abi: Allo
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - BaseFeePaid
+        - BaseFeeUpdated
+        - FeePercentageUpdated
+        - Initialized
+        - OwnershipHandoverCanceled
+        - OwnershipHandoverRequested
+        - OwnershipTransferred
+        - PoolCreated
+        - PoolFunded
+        - PoolMetadataUpdated
+        - RegistryUpdated
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - StrategyApproved
+        - StrategyRemoved
+        - TreasuryUpdated
+      abis:
+        - name: Allo
+          file: ./abis/Allo.json
+      eventHandlers:
+        - event: BaseFeePaid(indexed uint256,uint256)
+          handler: handleBaseFeePaid
+        - event: BaseFeeUpdated(uint256)
+          handler: handleBaseFeeUpdated
+        - event: FeePercentageUpdated(uint256)
+          handler: handleFeePercentageUpdated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipHandoverCanceled(indexed address)
+          handler: handleOwnershipHandoverCanceled
+        - event: OwnershipHandoverRequested(indexed address)
+          handler: handleOwnershipHandoverRequested
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PoolCreated(indexed uint256,indexed bytes32,address,address,uint256,(uint256,string))
+          handler: handlePoolCreated
+        - event: PoolFunded(indexed uint256,uint256,uint256)
+          handler: handlePoolFunded
+        - event: PoolMetadataUpdated(indexed uint256,(uint256,string))
+          handler: handlePoolMetadataUpdated
+        - event: RegistryUpdated(address)
+          handler: handleRegistryUpdated
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: StrategyApproved(address)
+          handler: handleStrategyApproved
+        - event: StrategyRemoved(address)
+          handler: handleStrategyRemoved
+        - event: TreasuryUpdated(address)
+          handler: handleTreasuryUpdated
+      file: ./src/allo.ts

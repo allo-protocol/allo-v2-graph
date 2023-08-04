@@ -1,12 +1,12 @@
-import { crypto} from '@graphprotocol/graph-ts'
-import { ByteArray } from '@graphprotocol/graph-ts';
+import { ByteArray, Bytes, crypto } from "@graphprotocol/graph-ts";
+import { ProfileMetadataUpdated } from "../generated/Registry/Registry";
 import {
   Account,
+  Allo,
   Metadata,
   Role,
   RoleAccount,
-  Allo
-} from '../generated/schema';
+} from "../generated/schema";
 
 /**
  * Returns keccak256 of array after elements are joined by '-'
@@ -14,26 +14,18 @@ import {
  * @returns keccak256
  */
 export function _generateID(array: Array<string>): string {
-  return crypto.keccak256(
-    ByteArray.fromUTF8(array.join('-'))
-  ).toBase58();
+  return crypto.keccak256(ByteArray.fromUTF8(array.join("-"))).toBase58();
 }
 
-export function _upsertMetadata(
-  metadataParam: any
-): string {
+export function _upsertMetadata(metadataParam: ProfileMetadataUpdated): string {
+  const protocol = metadataParam.parameters[0].value.toI32();
+  const pointer = metadataParam.parameters[1].value.toString();
 
-  const protocol = metadataParam[0].toI32()
-  const pointer = metadataParam[1].toString()
-
-  const metadataId = _generateID([
-    protocol.toString(),
-    pointer.toString()
-  ])
-  const metadataEntity = new Metadata(metadataId)
-  metadataEntity.protocol = protocol
-  metadataEntity.pointer = pointer
-  metadataEntity.save()
+  const metadataId = _generateID([protocol.toString(), pointer.toString()]);
+  const metadataEntity = new Metadata(metadataId);
+  metadataEntity.protocol = protocol;
+  metadataEntity.pointer = pointer;
+  metadataEntity.save();
 
   return metadataId;
 }
@@ -43,11 +35,11 @@ export function _upsertMetadata(
  * @param id string
  * @returns string
  */
-export function _upsertAccount(id: string): string {
-  let accountEntity = Account.load(id)
+export function _upsertAccount(id: Bytes): Bytes {
+  let accountEntity = Account.load(id);
   if (accountEntity == null) {
-    accountEntity = new Account(id)
-    accountEntity.save()
+    accountEntity = new Account(id);
+    accountEntity.save();
   }
   return id;
 }
@@ -57,15 +49,14 @@ export function _upsertAccount(id: string): string {
  * @param id string
  * @returns string
  */
-export function _upsertRole(id: string): string {
-  let roleEntity = Role.load(id)
+export function _upsertRole(id: Bytes): Bytes {
+  let roleEntity = Role.load(id);
   if (roleEntity == null) {
-    roleEntity = new Role(id)
-    roleEntity.save()
+    roleEntity = new Role(id);
+    roleEntity.save();
   }
   return id;
 }
-
 
 /**
  * Checks if RoleAccount exists, if not creates new RoleAccount
@@ -74,11 +65,11 @@ export function _upsertRole(id: string): string {
  * @returns string
  */
 export function _upsertRoleAccount(roleId: string, accountId: string): string {
-  const id = `${roleId}-${accountId}`
-  let roleAccountEntity = RoleAccount.load(id)
+  const id = `${roleId}-${accountId}`;
+  let roleAccountEntity = RoleAccount.load(id);
   if (roleAccountEntity == null) {
-    roleAccountEntity = new Role(id)
-    roleAccountEntity.save()
+    roleAccountEntity = new Role(id);
+    roleAccountEntity.save();
   }
   return id;
 }
@@ -88,9 +79,9 @@ export function _upsertRoleAccount(roleId: string, accountId: string): string {
  * @returns Allo
  */
 export function _upsertAllo(): Allo {
-  let alloEntity = Allo.load('0')
+  let alloEntity = Allo.load("0");
   if (alloEntity == null) {
-    alloEntity = new Allo('0')
+    alloEntity = new Allo("0");
   }
   return alloEntity;
 }

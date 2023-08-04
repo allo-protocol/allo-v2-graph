@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "license": "AGPL-3.0-only",
   "scripts": {
+    "lint": "eslint \"src/*.{ts}\"",
     "codegen": "graph codegen",
     "build": "graph build",
     "test": "graph test",
@@ -10,10 +11,15 @@
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.53.0",
-    "@graphprotocol/graph-ts": "0.31.1"
+    "@graphprotocol/graph-ts": "0.31.1",
+    "@typescript-eslint/types": "^6.2.1",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1"
   },
   "devDependencies": {
     "matchstick-as": "^0.5.0",
-    "mustache": "^4.2.0"
+    "mustache": "^4.2.0",
+    "eslint": "^8.46.0",
+    "typescript": "^5.1.6"
   }
 }
