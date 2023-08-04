@@ -1,4 +1,4 @@
-import { ByteArray, Bytes, crypto } from "@graphprotocol/graph-ts";
+import { Address, ByteArray, Bytes, crypto } from "@graphprotocol/graph-ts";
 import { ProfileMetadataUpdated } from "../generated/Registry/Registry";
 import {
   Account,
@@ -62,16 +62,22 @@ export function _upsertRole(id: Bytes): Bytes {
  * Checks if RoleAccount exists, if not creates new RoleAccount
  * @param roldId string
  * @param accountId string
- * @returns string
+ * @returns RoleAccount
  */
-export function _upsertRoleAccount(roleId: string, accountId: string): string {
+export function _upsertRoleAccount(roleParam: Bytes, accountParam: Address): RoleAccount {
+ 
+  // Upsert role and account
+  const roleId = _upsertRole(roleParam);
+  const accountId = _upsertAccount(accountParam);
+ 
   const id = `${roleId}-${accountId}`;
+
   let roleAccountEntity = RoleAccount.load(id);
   if (roleAccountEntity == null) {
-    roleAccountEntity = new Role(id);
+    roleAccountEntity = new RoleAccount(id);
     roleAccountEntity.save();
   }
-  return id;
+  return roleAccountEntity;
 }
 
 /**

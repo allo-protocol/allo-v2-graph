@@ -27,10 +27,10 @@ export function handleProfileCreated(event: ProfileCreated): void {
 
   const profileId = event.params.profileId;
 
-  // create new account
-  const accountEntity = _upsertAccount(event.params.owner);
+  // create new account entity for the profile owner
+  const ownerAccountEntity = _upsertAccount(event.params.owner);
 
-  // create new role
+  // create new role entity which will be assigned to members
   const memberRoleId = _upsertRole(profileId);
 
   // create new Profile entity
@@ -39,7 +39,7 @@ export function handleProfileCreated(event: ProfileCreated): void {
   profileEntity.metadata = metadataId.toString();
   profileEntity.anchor = event.params.anchor;
   profileEntity.nonce = event.params.nonce;
-  profileEntity.owner = accountEntity;
+  profileEntity.owner = ownerAccountEntity;
   profileEntity.memberRole = memberRoleId;
 
   profileEntity.createdAt = event.block.timestamp;
@@ -95,17 +95,14 @@ export function handleRoleGranted(event: RoleGranted): void {
   const roleParam = event.params.role;
   const accountParam = event.params.account;
 
-  // upsert entities
-  const roleId = _upsertRole(roleParam);
-  const accountId = _upsertAccount(accountParam);
-  // create join entity
-  const roleAccountId = _upsertRoleAccount(roleId.toString(), accountId.toString());
+  // create role and account entity
+   _upsertRoleAccount(roleParam, accountParam);
 }
 
 export function handleRoleRevoked(event: RoleRevoked): void {
   const roleParam = event.params.role;
   const accountParam = event.params.account;
 
-  const roleAccountId = _upsertRoleAccount(roleParam.toString(), accountParam.toString());
-  store.remove("RoleAccount", roleAccountId);
+  const roleAccountEntity = _upsertRoleAccount(roleParam, accountParam);
+  store.remove('RoleAccount', roleAccountEntity.id);
 }
