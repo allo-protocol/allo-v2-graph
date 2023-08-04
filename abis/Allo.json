@@ -767,11 +767,6 @@
             "type": "address"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          },
-          {
             "components": [
               {
                 "internalType": "uint256",

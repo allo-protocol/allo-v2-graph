@@ -42,14 +42,14 @@ Use this example where we deploy the subgraph on goerli
 ```shell
 # Hosted Service
 rm -rf generated && rm -rf build &&
-    pnpm prepare:goerli &&
+    yarn run prepare:goerli &&
     graph codegen &&
     graph auth --product hosted-service <YOUR_API_KEY> &&
     graph deploy --product hosted-service <GITHUB_USER>/<SUBGRAPH_NAME>
 
 # Studio
 rm -rf generated && rm -rf build &&
-    pnpm prepare:goerli &&
+    yarn run prepare:goerli &&
     graph codegen &&
     graph auth --product studio <YOUR_API_KEY> &&
     graph deploy --product studio <SUBGRAPH_NAME>

@@ -1,6 +1,6 @@
 {
     "network": "goerli",
     "startBlock": 0,
-    "registryAddress": "0xe571ec2C7b94dE72Bc01937a251E48780DEF882A",
-    "alloAddress": "0x45F5506b0014cbdc9652854B65eed90E56aB7dA9"
+    "registryAddress": "0x292285C40E966520D5Fd8e4Ab91583C70bBa3dc0",
+    "alloAddress": "0xF7DE229d52CDa2cA42bF325f467870acD92Fdd2b"
   }
