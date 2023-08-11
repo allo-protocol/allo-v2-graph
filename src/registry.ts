@@ -58,7 +58,9 @@ export function handleProfileMetadataUpdated(
   }
 
   // create new MetaPtr entity
-  const metadataId = _upsertMetadata(event.params.metadata);
+  const protocol = event.params.metadata[0].toI32();
+  const pointer = event.params.metadata[1].toString();
+  const metadataId = _upsertMetadata(protocol, pointer);
 
   profileEntity.metadata = metadataId;
 

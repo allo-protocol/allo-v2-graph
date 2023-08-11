@@ -65,7 +65,9 @@ export function handleStrategyRemoved(event: StrategyRemoved): void {
 export function handlePoolCreated(event: PoolCreated): void {
 
   // create new MetaPtr entity
-  const metadataId = _upsertMetadata(event.params.metadata);
+  const protocol = event.params.metadata[0].toI32();
+  const pointer = event.params.metadata[1].toString();
+  const metadataId = _upsertMetadata(protocol, pointer);
   const poolId = event.params.poolId;
 
   const pool = new Pool(poolId.toString());
@@ -102,7 +104,9 @@ export function handlePoolMetadataUpdated(event: PoolMetadataUpdated): void {
   }
 
   // create new MetaPtr entity
-  const metadataId = _upsertMetadata(event.params.metadata);
+  const protocol = event.params.metadata[0].toI32();
+  const pointer = event.params.metadata[1].toString();
+  const metadataId = _upsertMetadata(protocol, pointer);
 
   pool.metadata = metadataId;
   pool.updatedAt = event.block.timestamp;
