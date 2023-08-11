@@ -4,8 +4,8 @@
 
 type Metadata @entity {
   id: ID!
-  protocol: Int,
-  pointer: String
+  protocol: Int!,
+  pointer: String!
 }
 
 type Role @entity {

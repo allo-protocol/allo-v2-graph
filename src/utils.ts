@@ -16,7 +16,7 @@ export function _generateID(array: Array<string>): string {
   return crypto.keccak256(ByteArray.fromUTF8(array.join("-"))).toBase58();
 }
 
-export function _upsertMetadata(protocol: number, pointer: string): string {
+export function _upsertMetadata(protocol: i32, pointer: string): string {
   const metadataId = _generateID([protocol.toString(), pointer.toString()]);
   const metadataEntity = new Metadata(metadataId);
   metadataEntity.protocol = protocol;

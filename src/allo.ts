@@ -1,4 +1,4 @@
-import { Bytes, ByteArray, crypto, store } from '@graphprotocol/graph-ts';
+import { Bytes, ByteArray, crypto, store, log } from '@graphprotocol/graph-ts';
 import {
   BaseFeeUpdated,
   FeePercentageUpdated,
@@ -47,17 +47,30 @@ export function handleFeePercentageUpdated(event: FeePercentageUpdated): void {
 
 export function handleStrategyApproved(event: StrategyApproved): void {
   const allo = _upsertAllo();
-  allo.cloneableStrategies.push(event.params.strategy);
+  const strategy = event.params.strategy;
+
+  if (!allo.cloneableStrategies) {
+    allo.cloneableStrategies = [];
+  }
+
+  allo.cloneableStrategies!.push(strategy);
   allo.save();
 }
 
 export function handleStrategyRemoved(event: StrategyRemoved): void {
   const allo = _upsertAllo();
-  for (let i = 0; i < allo.cloneableStrategies.length; i++) {
-    if (allo.cloneableStrategies[i] == event.params.strategy) {
-      allo.cloneableStrategies.splice(i, 1);
+  const strategy = event.params.strategy;
+
+  if (!allo.cloneableStrategies) {
+    log.warning("--> handleStrategyRemoved: cloneableStrategies is null", []);
+    return;
+  }
+
+  for (let i = 0; i < allo.cloneableStrategies!.length; i++) {
+    if (allo.cloneableStrategies![i] == strategy) {
+      allo.cloneableStrategies!.splice(i, 1);
       allo.save();
-      return ;
+      return;
     }
   }
 }
@@ -65,26 +78,26 @@ export function handleStrategyRemoved(event: StrategyRemoved): void {
 export function handlePoolCreated(event: PoolCreated): void {
 
   // create new MetaPtr entity
-  const protocol = event.params.metadata[0].toI32();
-  const pointer = event.params.metadata[1].toString();
-  const metadataId = _upsertMetadata(protocol, pointer);
-  const poolId = event.params.poolId;
+  // const protocol = event.params.metadata[0].toI32();
+  // const pointer = event.params.metadata[1].toString();
+  // const metadataId = _upsertMetadata(protocol, pointer);
+  // const poolId = event.params.poolId;
 
-  const pool = new Pool(poolId.toString());
-  pool.allo = _upsertAllo().id;
-  pool.strategy = event.params.strategy;
-  pool.metadata = metadataId;
-  pool.token = event.params.token;
-  pool.amount = event.params.amount;
+  // const pool = new Pool(poolId.toString());
+  // pool.allo = _upsertAllo().id;
+  // pool.strategy = event.params.strategy;
+  // pool.metadata = metadataId;
+  // pool.token = event.params.token;
+  // pool.amount = event.params.amount;
 
-  // TODO: fix the roles / fetch from contract directly
-  pool.adminRole = Bytes.fromBigInt(poolId); // bytes32(poolId)
-  pool.managerRole = crypto.keccak256(ByteArray.fromUTF8(poolId, "admin")); // keccak256(abi.encodePacked(poolId, "admin"))
+  // // TODO: fix the roles / fetch from contract directly
+  // pool.adminRole = poolId; // bytes32(poolId)
+  // pool.managerRole = crypto.keccak256(ByteArray.fromUTF8(poolId, "admin")); // keccak256(abi.encodePacked(poolId, "admin"))
 
-  pool.createdAt = event.block.timestamp;
-  pool.updatedAt = event.block.timestamp;
+  // pool.createdAt = event.block.timestamp;
+  // pool.updatedAt = event.block.timestamp;
 
-  pool.save();
+  // pool.save();
 }
 
 export function handlePoolFunded(event: PoolFunded): void {
