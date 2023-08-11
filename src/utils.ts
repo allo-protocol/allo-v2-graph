@@ -71,6 +71,8 @@ export function _upsertRoleAccount(roleParam: Bytes, accountParam: Address): Rol
   let roleAccountEntity = RoleAccount.load(id);
   if (roleAccountEntity == null) {
     roleAccountEntity = new RoleAccount(id);
+    roleAccountEntity.role = roleId;
+    roleAccountEntity.account = accountId;
     roleAccountEntity.save();
   }
   return roleAccountEntity;

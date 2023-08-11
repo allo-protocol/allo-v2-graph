@@ -34,7 +34,7 @@ export function handleProfileCreated(event: ProfileCreated): void {
   const memberRoleId = _upsertRole(profileId);
 
   // create new Profile entity
-  const profileEntity = new Profile(profileId.toString());
+  const profileEntity = new Profile(profileId.toHexString());
   profileEntity.name = event.params.name;
   profileEntity.metadata = metadataId.toString();
   profileEntity.anchor = event.params.anchor;
@@ -52,7 +52,7 @@ export function handleProfileMetadataUpdated(
   event: ProfileMetadataUpdated
 ): void {
   const profileId = event.transaction.from;
-  const profileEntity = Profile.load(profileId.toString());
+  const profileEntity = Profile.load(profileId.toHexString());
   if (profileEntity == null) {
     return;
   }
@@ -71,7 +71,7 @@ export function handleProfileMetadataUpdated(
 
 export function handleProfileNameUpdated(event: ProfileNameUpdated): void {
   const profileId = event.params.profileId;
-  const profileEntity = Profile.load(profileId.toString());
+  const profileEntity = Profile.load(profileId.toHexString());
   if (profileEntity == null) {
     return;
   }
@@ -82,7 +82,7 @@ export function handleProfileNameUpdated(event: ProfileNameUpdated): void {
 
 export function handleProfileOwnerUpdated(event: ProfileOwnerUpdated): void {
   const profileId = event.params.profileId;
-  const profileEntity = Profile.load(profileId.toString());
+  const profileEntity = Profile.load(profileId.toHexString());
   if (profileEntity == null) {
     return;
   }

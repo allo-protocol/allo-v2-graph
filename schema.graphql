@@ -49,10 +49,10 @@ type Profile @entity {
 # id = 0
 type Allo @entity {
   id: ID!
-  registry: Bytes!
-  feePercentage: BigInt!
-  baseFee: BigInt!
-  treasury: Bytes!
+  registry: Bytes
+  feePercentage: BigInt
+  baseFee: BigInt
+  treasury: Bytes
   cloneableStrategies: [Bytes!]
 }
 
