@@ -71,3 +71,7 @@ type Pool @entity {
   createdAt: BigInt!
   updatedAt: BigInt!
 }
+
+####################
+# ==== #
+####################

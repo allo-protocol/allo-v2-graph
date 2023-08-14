@@ -11,27 +11,37 @@ https://thegraph.com/docs/en/deploying/deploying-a-subgraph-to-hosted/#using-gra
 
 ## Deploy
 
-- Run codegen
+> Run codegen
 ```shell
 graph codegen
 ```
 
-- Authenticate - incase of hosted service
+> Authenticate - incase of hosted service
 ```shell
 graph auth --product hosted-service <YOUR_API_KEY>
 ```
 
-- Authenticate - incase of studio
+> Authenticate - incase of studio
 ```shell
 graph auth --studio <YOUR_API_KEY>
 ```
 
-- Deploy Subgraph - incase of hosted service
+> Local or Custom Node Deployment
+```shell
+# Create the subgraph
+# graph create allo-protocol/allo --node http://localhost:8020
+graph graph create <GITHUB_USER>/<SUBGRAPH_NAME> --node <NODE_URL>
+
+# Deploy the subgraph
+graph deploy  --node <NODE_URL> --ipfs <IPFS_URL>  <GITHUB_USER>/<SUBGRAPH_NAME> ./subgraph.yaml
+```
+
+> Deploy Subgraph - incase of hosted service
 ```shell
 graph deploy --product hosted-service <GITHUB_USER>/<SUBGRAPH_NAME>
 ```
 
-- Deploy Subgraph - incase of studio
+> Deploy Subgraph - incase of studio
 ```shell
 graph deploy --studio <SUBGRAPH_NAME>
 ```

@@ -1,5 +1,7 @@
-import { Bytes, ByteArray, crypto, store, log } from '@graphprotocol/graph-ts';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { log, store } from '@graphprotocol/graph-ts';
 import {
+  BaseFeePaid,
   BaseFeeUpdated,
   FeePercentageUpdated,
   PoolCreated,
@@ -20,7 +22,6 @@ import {
   _upsertRoleAccount
 } from "./utils";
 
-
 export function handleRegistryUpdated(event: RegistryUpdated): void {
   const allo = _upsertAllo();
   allo.registry = event.params.registry;
@@ -31,6 +32,11 @@ export function handleTreasuryUpdated(event: TreasuryUpdated): void {
   const allo = _upsertAllo();
   allo.treasury = event.params.treasury;
   allo.save();
+}
+
+export function handleBaseFeePaid(event: BaseFeePaid): void {
+  const allo = _upsertAllo();
+  allo.baseFee = event.params.amount;
 }
 
 export function handleBaseFeeUpdated(event: BaseFeeUpdated): void {
@@ -75,6 +81,7 @@ export function handleStrategyRemoved(event: StrategyRemoved): void {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function handlePoolCreated(event: PoolCreated): void {
 
   // create new MetaPtr entity

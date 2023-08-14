@@ -16,6 +16,8 @@ import {
   _upsertRoleAccount,
 } from "./utils";
 
+// NOTE: ProfileCreated event data
+// bytes32 indexed profileId, uint256 nonce, string name, Metadata metadata, address owner, address anchor
 export function handleProfileCreated(event: ProfileCreated): void {
   // create new Metadata entity
   const _metadata = event.params.metadata;

@@ -5,11 +5,11 @@ dataSources:
   # Registry
   - kind: ethereum
     name: Registry
-    network: {{network}}
+    network: "goerli"
     source:
-      address: '{{registryAddress}}'
+      address: "{{registryAddress}}"
       abi: Registry
-      startBlock: {{ startBlock }}
+      startBlock: 9476300
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -36,11 +36,12 @@ dataSources:
   # Allo
   - kind: ethereum
     name: Allo
-    network: {{network}}
+    network: "goerli"
     source:
-      address: '{{alloAddress}}'
+      address: "{{alloAddress}}"
       abi: Allo
-      startBlock: {{ startBlock }}
+      # having a casing issue with this value for some reason - Expected BigInt, found map: '{ startBlock }': null
+      startBlock: 9476300
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -74,8 +75,8 @@ dataSources:
           handler: handlePoolMetadataUpdated
         - event: RegistryUpdated(address)
           handler: handleRegistryUpdated
-  #       - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
-  #         handler: handleRoleAdminChanged
+        #       - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+        #         handler: handleRoleAdminChanged
         - event: RoleGranted(indexed bytes32,indexed address,indexed address)
           handler: handleRoleGranted
         - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
@@ -87,3 +88,24 @@ dataSources:
         - event: TreasuryUpdated(address)
           handler: handleTreasuryUpdated
       file: ./src/allo.ts
+
+  # DonationVotingMerklePayout
+  # - kind: ethereum
+  #   name: DonationVotingMerklePayout
+  #   network: "{ { network } }"
+  #   source:
+  #     address: "{{donationVotingMerklePayoutAddress}}"
+  #     abi: DonationVotingMerklePayout
+  #     startBlock: 9476300
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.5
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - DonationVotingMerklePayout
+  #     abis:
+  #       - name: DonationVotingMerklePayout
+  #         file: ./abis/DonationVotingMerklePayout.json
+  #     eventHandlers:
+  #       - event: DonationVotingMerklePayout(address,uint)
+  #         handler: handleDonationVotingMerklePayout
