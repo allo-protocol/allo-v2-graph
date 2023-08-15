@@ -111,22 +111,30 @@ dataSources:
         - DonationVotingMerkleDistributionStrategy
       abis:
         - name: DonationVotingMerkleDistributionStrategy
-          file: ./abis/DonationVotingMerkleDistributionStrategy.json
+          file: ./abis/DonationVotingMerklePayout.json
       eventHandlers:
+        - event: Allocated(indexed address,uint256,address,address)
+          handler: handleAllocated
         - event: Appealed(indexed address,bytes,address)
           handler: handleAppealed
+        - event: Registered(indexed address,bytes,address)
+          handler: handleRegistered
         - event: RecipientStatusUpdated(indexed uint256,uint256,address)
           handler: handleRecipientStatusUpdated
         - event: Claimed(indexed address,address,uin256,address)
           handler: handleClaimed
+        - event: Distributed(indexed address,address,uint256,address)
+          handler: handleDistributed
         - event: TimestampsUpdated(uint256,uint256,uint256,uint256,address)
           handler: handleTimestampsUpdated
-        - event: DistributionUpdated(bytes32,Metadata)
+        - event: DistributionUpdated(bytes32,(uint256,string))
           handler: handleDistributionUpdated
         - event: FundsDistributed(uint256,address,indexed address,indexed address)
           handler: handleFundsDistributed
         - event: BatchPayoutSuccessful(indexed address)
           handler: handleBatchPayoutSuccessful
+        - event: PoolActive(bool)
+          handler: handlePoolActive
       file: ./src/strategies/donationVotingMerkle.ts
 
   # NOTE: This has not been deoployed yet
@@ -148,14 +156,20 @@ dataSources:
         - DirectGrantsSimpleStrategy
       abis:
         - name: DirectGrantsSimpleStrategy
-          file: ./abis/DirectGrantsSimpleStrategy.json
+          file: ./abis/DirectGrantsSimple.json
       eventHandlers:
-        - event: RecipientStatusChanged(address,InternalRecipientStatus)
+        - event: Allocated(indexed address,uint256,address,address)
+          handler: handleAllocated
+        - event: MilestoneStatusChanged(address,uint256,uint8)
           handler: handleRecipientStatusChanged
-        - event: MilestoneSubmitted(address,uint256,Metadata)
+        - event: MilestoneSubmitted(address,uint256,(uint256,string))
           handler: handleMilestoneSubmitted
         - event: MilestoneStatusChanged(address,uint256,RecipientStatus)
           handler: handleMilestoneStatusChanged
         - event: MilestoneSet(address)
           handler: handleMilestoneSet
+        - event: Registered(indexed address,bytes,address)
+          handler: handleRegistered
+        - event: PoolActive(bool)
+          handler: handlePoolActive
       file: ./src/strategies/directGrantsSimple.ts

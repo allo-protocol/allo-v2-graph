@@ -7,3 +7,9 @@
 // export function handleMilestoneStatusChanged(event: MilestoneStatusChanged): void {}
 
 // export function handleMilestonesSet(event: MilestonesSet): void {}
+
+// export function handleAllocated(event: Allocated): void {}
+
+// export function handleRegistered(event: Registered): void {}
+
+// export function handlePoolActive(event: PoolActive): void {}

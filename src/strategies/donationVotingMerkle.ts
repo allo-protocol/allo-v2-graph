@@ -13,3 +13,11 @@
 // export function handleFundsDistributed(event: FundsDistributed): void {}
 
 // export function handleBatchPayoutSuccessful(event: BatchPayoutSuccessful): void {}
+
+// export function handleAllocated(event: Allocated): void {}
+
+// export function handleDistributed(event: Distributed): void {}
+
+// export function handlePoolActive(event: PoolActive): void {}
+
+// export function handleRegistered(event: Registered): void {}
