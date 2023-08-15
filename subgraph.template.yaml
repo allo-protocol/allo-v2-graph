@@ -5,6 +5,7 @@ dataSources:
   # Registry
   - kind: ethereum
     name: Registry
+    # FIXME: replace with mustache templating - was not working for some reason
     network: "goerli"
     source:
       address: "{{registryAddress}}"
@@ -32,10 +33,11 @@ dataSources:
           handler: handleRoleGranted
         - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
           handler: handleRoleRevoked
-      file: ./src/registry.ts
+      file: ./src/core/registry.ts
   # Allo
   - kind: ethereum
     name: Allo
+    # FIXME: replace with mustache templating - was not working for some reason
     network: "goerli"
     source:
       address: "{{alloAddress}}"
@@ -88,26 +90,72 @@ dataSources:
           handler: handleStrategyRemoved
         - event: TreasuryUpdated(address)
           handler: handleTreasuryUpdated
-      file: ./src/allo.ts
+      file: ./src/core/allo.ts
 
   # NOTE: This has not been deoployed yet
   # DonationVotingMerkleDistributionStrategy
-  # - kind: ethereum
-  #   name: DonationVotingMerkleDistributionStrategy
-  #   network: "goerli"
-  #   source:
-  #     address: "{{donationVotingMerkleDistrobutionAddress}}"
-  #     abi: DonationVotingMerkleDistributionStrategy
-  #     startBlock: 9476300
-  #   mapping:
-  #     kind: ethereum/events
-  #     apiVersion: 0.0.5
-  #     language: wasm/assemblyscript
-  #     entities:
-  #       - DonationVotingMerkleDistributionStrategy
-  #     abis:
-  #       - name: DonationVotingMerkleDistributionStrategy
-  #         file: ./abis/DonationVotingMerkleDistributionStrategy.json
-  #     eventHandlers:
-  #       - event: DonationVotingMerkleDistributionStrategy(address,uint)
-  #         handler: handleDonationVotingMerkleDistributionStrategy
+  - kind: ethereum
+    name: DonationVotingMerkleDistributionStrategy
+    # FIXME: replace with mustache templating - was not working for some reason
+    network: "goerli"
+    source:
+      address: "{{donationVotingMerkleDistrobutionAddress}}"
+      abi: DonationVotingMerkleDistributionStrategy
+      # FIXME: replace with mustache templating - was not working for some reason
+      startBlock: 9476300
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - DonationVotingMerkleDistributionStrategy
+      abis:
+        - name: DonationVotingMerkleDistributionStrategy
+          file: ./abis/DonationVotingMerkleDistributionStrategy.json
+      eventHandlers:
+        - event: Appealed(indexed address,bytes,address)
+          handler: handleAppealed
+        - event: RecipientStatusUpdated(indexed uint256,uint256,address)
+          handler: handleRecipientStatusUpdated
+        - event: Claimed(indexed address,address,uin256,address)
+          handler: handleClaimed
+        - event: TimestampsUpdated(uint256,uint256,uint256,uint256,address)
+          handler: handleTimestampsUpdated
+        - event: DistributionUpdated(bytes32,Metadata)
+          handler: handleDistributionUpdated
+        - event: FundsDistributed(uint256,address,indexed address,indexed address)
+          handler: handleFundsDistributed
+        - event: BatchPayoutSuccessful(indexed address)
+          handler: handleBatchPayoutSuccessful
+      file: ./src/strategies/donationVotingMerkle.ts
+
+  # NOTE: This has not been deoployed yet
+  # DirectGrantsSimpleStrategy
+  - kind: ethereum
+    name: DirectGrantsSimpleStrategy
+    # FIXME: replace with mustache templating - was not working for some reason
+    network: "goerli"
+    source:
+      address: "{{directGrantsSimpleStrategyAddress}}"
+      abi: DirectGrantsSimpleStrategy
+      # FIXME: replace with mustache templating - was not working for some reason
+      startBlock: 9476300
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - DirectGrantsSimpleStrategy
+      abis:
+        - name: DirectGrantsSimpleStrategy
+          file: ./abis/DirectGrantsSimpleStrategy.json
+      eventHandlers:
+        - event: RecipientStatusChanged(address,InternalRecipientStatus)
+          handler: handleRecipientStatusChanged
+        - event: MilestoneSubmitted(address,uint256,Metadata)
+          handler: handleMilestoneSubmitted
+        - event: MilestoneStatusChanged(address,uint256,RecipientStatus)
+          handler: handleMilestoneStatusChanged
+        - event: MilestoneSet(address)
+          handler: handleMilestoneSet
+      file: ./src/strategies/directGrantsSimple.ts

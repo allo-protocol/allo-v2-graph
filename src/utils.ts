@@ -7,6 +7,15 @@ import {
   RoleAccount,
 } from "../generated/schema";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+enum InternalRecipientStatus {
+  None,
+  Pending,
+  Accepted,
+  Rejected,
+  Appealed
+}
+
 /**
  * Returns keccak256 of array after elements are joined by '-'
  * @param Array<string>

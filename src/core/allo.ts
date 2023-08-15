@@ -2,27 +2,27 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { log, store } from '@graphprotocol/graph-ts';
 import {
-  BaseFeePaid,
-  BaseFeeUpdated,
-  FeePercentageUpdated,
-  PoolCreated,
-  PoolFunded,
-  PoolMetadataUpdated,
-  RegistryUpdated,
-  RoleAdminChanged,
-  // RoleAdminChanged,
-  RoleGranted,
-  RoleRevoked,
-  StrategyApproved,
-  StrategyRemoved,
-  TreasuryUpdated
-} from "../generated/Allo/Allo";
-import { Pool } from "../generated/schema";
+    BaseFeePaid,
+    BaseFeeUpdated,
+    FeePercentageUpdated,
+    PoolCreated,
+    PoolFunded,
+    PoolMetadataUpdated,
+    RegistryUpdated,
+    RoleAdminChanged,
+    // RoleAdminChanged,
+    RoleGranted,
+    RoleRevoked,
+    StrategyApproved,
+    StrategyRemoved,
+    TreasuryUpdated
+} from "../../generated/Allo/Allo";
+import { Pool } from "../../generated/schema";
 import {
-  _upsertAllo,
-  _upsertMetadata,
-  _upsertRoleAccount
-} from "./utils";
+    _upsertAllo,
+    _upsertMetadata,
+    _upsertRoleAccount
+} from "../utils";
 
 export function handleRegistryUpdated(event: RegistryUpdated): void {
   const allo = _upsertAllo();
