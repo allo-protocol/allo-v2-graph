@@ -90,10 +90,29 @@ interface Strategy @entity {
 }
 
 # id = strategyAddress.toHex()
-type DonationVotingMerklePayout implements Strategy @entity {
+type DonationVotingMerkleDistribution implements Strategy @entity {
   id: ID!
   strategyName: String!
   strategyAddress: String!
+  pool: Pool!
+  metadata: Metadata!
+  owner: Account!
+  members: [Account!]
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+# id = strategyAddress.toHex()
+type DirectGrantsSimple implements Strategy @entity {
+  id: ID!
+  strategyName: String!
+  strategyAddress: String!
+  pool: Pool!
+  metadata: Metadata!
+  owner: Account!
+  members: [Account!]
+  createdAt: BigInt!
+  updatedAt: BigInt!
 }
 
 # TODO: the id

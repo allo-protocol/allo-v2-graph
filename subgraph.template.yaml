@@ -121,7 +121,7 @@ dataSources:
           handler: handleRegistered
         - event: RecipientStatusUpdated(indexed uint256,uint256,address)
           handler: handleRecipientStatusUpdated
-        - event: Claimed(indexed address,address,uin256,address)
+        - event: Claimed(indexed address,address,uint256,address)
           handler: handleClaimed
         - event: Distributed(indexed address,address,uint256,address)
           handler: handleDistributed
@@ -164,10 +164,10 @@ dataSources:
           handler: handleRecipientStatusChanged
         - event: MilestoneSubmitted(address,uint256,(uint256,string))
           handler: handleMilestoneSubmitted
-        - event: MilestoneStatusChanged(address,uint256,RecipientStatus)
+        - event: MilestoneStatusChanged(address,uint256,uint8)
           handler: handleMilestoneStatusChanged
-        - event: MilestoneSet(address)
-          handler: handleMilestoneSet
+        - event: MilestonesSet(address)
+          handler: handleMilestonesSet
         - event: Registered(indexed address,bytes,address)
           handler: handleRegistered
         - event: PoolActive(bool)
