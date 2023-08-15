@@ -47,6 +47,7 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
+        - BaseFeePaid
         - BaseFeeUpdated
         - FeePercentageUpdated
         - PoolCreated
@@ -89,23 +90,24 @@ dataSources:
           handler: handleTreasuryUpdated
       file: ./src/allo.ts
 
-  # DonationVotingMerklePayout
+  # NOTE: This has not been deoployed yet
+  # DonationVotingMerkleDistributionStrategy
   # - kind: ethereum
-  #   name: DonationVotingMerklePayout
-  #   network: "{ { network } }"
+  #   name: DonationVotingMerkleDistributionStrategy
+  #   network: "goerli"
   #   source:
-  #     address: "{{donationVotingMerklePayoutAddress}}"
-  #     abi: DonationVotingMerklePayout
+  #     address: "{{donationVotingMerkleDistrobutionAddress}}"
+  #     abi: DonationVotingMerkleDistributionStrategy
   #     startBlock: 9476300
   #   mapping:
   #     kind: ethereum/events
   #     apiVersion: 0.0.5
   #     language: wasm/assemblyscript
   #     entities:
-  #       - DonationVotingMerklePayout
+  #       - DonationVotingMerkleDistributionStrategy
   #     abis:
-  #       - name: DonationVotingMerklePayout
-  #         file: ./abis/DonationVotingMerklePayout.json
+  #       - name: DonationVotingMerkleDistributionStrategy
+  #         file: ./abis/DonationVotingMerkleDistributionStrategy.json
   #     eventHandlers:
-  #       - event: DonationVotingMerklePayout(address,uint)
-  #         handler: handleDonationVotingMerklePayout
+  #       - event: DonationVotingMerkleDistributionStrategy(address,uint)
+  #         handler: handleDonationVotingMerkleDistributionStrategy

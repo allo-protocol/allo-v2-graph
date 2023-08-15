@@ -78,6 +78,13 @@ export function _upsertRoleAccount(roleParam: Bytes, accountParam: Address): Rol
   return roleAccountEntity;
 }
 
+// TODO: Finish this function
+export function _upsertAdminRole(roleParam: Bytes, accountParam: Address): RoleAccount {
+  const roleAccountEntity = _upsertRoleAccount(roleParam, accountParam);
+
+  return roleAccountEntity;
+}
+
 /**
  * Checks if Allo exists, if not creates new Allo
  * @returns Allo

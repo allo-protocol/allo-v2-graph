@@ -5,6 +5,7 @@ import {
   ProfileMetadataUpdated,
   ProfileNameUpdated,
   ProfileOwnerUpdated,
+  RoleAdminChanged,
   RoleGranted,
   RoleRevoked,
 } from "../generated/Registry/Registry";
@@ -109,4 +110,11 @@ export function handleRoleRevoked(event: RoleRevoked): void {
 
   const roleAccountEntity = _upsertRoleAccount(roleParam, accountParam);
   store.remove('RoleAccount', roleAccountEntity.id);
+}
+
+export function handleRoleAdminChanged(event: RoleAdminChanged): void {
+  const roleParams = event.params.role;
+  const newAdmin = event.params.newAdminRole;
+
+  const roleEntity = _upsertRole(roleParams);
 }

@@ -73,5 +73,51 @@ type Pool @entity {
 }
 
 ####################
-# ==== #
+# == Strategies == #
 ####################
+
+# NOTE: WIP
+
+# id = strategyAddress.toHex()
+interface Strategy @entity {
+  id: ID!
+  pool: Pool!
+  metadata: Metadata!
+  owner: Account!
+  members: [Account!]
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+# id = strategyAddress.toHex()
+type DonationVotingMerklePayout implements Strategy @entity {
+  id: ID!
+  strategyName: String!
+  strategyAddress: String!
+}
+
+# TODO: the id
+type PayoutSummary @entity {
+  id: ID!
+  recipientAddress: String!
+  amount: BigInt!
+}
+
+type ApplicationStatus @entity {
+  id: ID!
+  status: String!
+}
+
+type Claim @entity {
+  id: ID!
+  recipientAddress: String!
+  token: String!
+}
+
+type Distribution @entity {
+  id: ID!
+  index: BigInt!
+  recipientId: String!
+  amount: BigInt!
+  merkleProof: [Bytes!]
+}

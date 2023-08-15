@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { log, store } from '@graphprotocol/graph-ts';
 import {
@@ -8,6 +9,7 @@ import {
   PoolFunded,
   PoolMetadataUpdated,
   RegistryUpdated,
+  RoleAdminChanged,
   // RoleAdminChanged,
   RoleGranted,
   RoleRevoked,
@@ -84,7 +86,7 @@ export function handleStrategyRemoved(event: StrategyRemoved): void {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function handlePoolCreated(event: PoolCreated): void {
 
-  // create new MetaPtr entity
+  // create new Metadata entity
   // const protocol = event.params.metadata[0].toI32();
   // const pointer = event.params.metadata[1].toString();
   // const metadataId = _upsertMetadata(protocol, pointer);
@@ -123,7 +125,7 @@ export function handlePoolMetadataUpdated(event: PoolMetadataUpdated): void {
     return ;
   }
 
-  // create new MetaPtr entity
+  // create new Metadata entity
   const protocol = event.params.metadata[0].toI32();
   const pointer = event.params.metadata[1].toString();
   const metadataId = _upsertMetadata(protocol, pointer);
@@ -132,11 +134,6 @@ export function handlePoolMetadataUpdated(event: PoolMetadataUpdated): void {
   pool.updatedAt = event.block.timestamp;
   pool.save();
 }
-
-
-// export function handleRoleAdminChanged(event: RoleAdminChanged): void {
-//   // TODO: check if this is needed cause this ideally wouldn't change
-// }
 
 // TODO: figure out how to track who the Pool admin is set / changed
 export function handleRoleGranted(event: RoleGranted): void {
@@ -153,5 +150,14 @@ export function handleRoleRevoked(event: RoleRevoked): void {
 
   const roleAccountEntity = _upsertRoleAccount(roleParam, accountParam);
   store.remove('RoleAccount', roleAccountEntity.id);
+}
+
+// TODO: figure out how to track who the Pool admin is set / changed
+export function handleRoleAdminChanged(event: RoleAdminChanged): void {
+  const roleParams = event.params.newAdminRole;
+  // FIXME: we need the new admin address?
+  // const newAdmin = event.params.role;
+
+  // const roleEntity = _upsertAdminRole(roleParams, newAdmin);
 }
 

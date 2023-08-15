@@ -29,10 +29,11 @@ graph auth --studio <YOUR_API_KEY>
 > Local or Custom Node Deployment
 ```shell
 # Create the subgraph
-# graph create allo-protocol/allo --node http://localhost:8020
+# graph create allo-protocol/allo --node http://localhost:8020/
 graph graph create <GITHUB_USER>/<SUBGRAPH_NAME> --node <NODE_URL>
 
 # Deploy the subgraph
+# graph deploy  --node http://localhost:8020/ --ipfs http://localhost:5001/  gitcoin/allo ./subgraph.yaml
 graph deploy  --node <NODE_URL> --ipfs <IPFS_URL>  <GITHUB_USER>/<SUBGRAPH_NAME> ./subgraph.yaml
 ```
 
