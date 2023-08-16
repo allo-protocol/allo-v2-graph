@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { log, store } from '@graphprotocol/graph-ts';
 import {
   BaseFeePaid,
@@ -10,7 +8,6 @@ import {
   PoolMetadataUpdated,
   RegistryUpdated,
   RoleAdminChanged,
-  // RoleAdminChanged,
   RoleGranted,
   RoleRevoked,
   StrategyApproved,
@@ -34,11 +31,6 @@ export function handleTreasuryUpdated(event: TreasuryUpdated): void {
   const allo = _upsertAllo();
   allo.treasury = event.params.treasury;
   allo.save();
-}
-
-export function handleBaseFeePaid(event: BaseFeePaid): void {
-  const allo = _upsertAllo();
-  allo.baseFee = event.params.amount;
 }
 
 export function handleBaseFeeUpdated(event: BaseFeeUpdated): void {
@@ -107,6 +99,15 @@ export function handlePoolCreated(event: PoolCreated): void {
   // pool.updatedAt = event.block.timestamp;
 
   // pool.save();
+}
+
+export function handleBaseFeePaid(event: BaseFeePaid): void {
+  const pool = Pool.load(event.params.poolId.toString());
+  if (pool == null) {
+    return ;
+  }
+  pool.baseFeesPaid.plus(event.params.amount);
+  pool.save();
 }
 
 export function handlePoolFunded(event: PoolFunded): void {
