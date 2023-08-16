@@ -92,7 +92,6 @@ dataSources:
           handler: handleTreasuryUpdated
       file: ./src/core/allo.ts
 
-  # NOTE: This has not been deoployed yet
   # DonationVotingMerkleDistributionStrategy
   - kind: ethereum
     name: DonationVotingMerkleDistributionStrategy
@@ -136,40 +135,3 @@ dataSources:
         - event: PoolActive(bool)
           handler: handlePoolActive
       file: ./src/strategies/donationVotingMerkle.ts
-
-  # NOTE: This has not been deoployed yet
-  # DirectGrantsSimpleStrategy
-  - kind: ethereum
-    name: DirectGrantsSimpleStrategy
-    # FIXME: replace with mustache templating - was not working for some reason
-    network: "goerli"
-    source:
-      address: "{{directGrantsSimpleStrategyAddress}}"
-      abi: DirectGrantsSimpleStrategy
-      # FIXME: replace with mustache templating - was not working for some reason
-      startBlock: 9476300
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - DirectGrantsSimpleStrategy
-      abis:
-        - name: DirectGrantsSimpleStrategy
-          file: ./abis/DirectGrantsSimple.json
-      eventHandlers:
-        - event: Allocated(indexed address,uint256,address,address)
-          handler: handleAllocated
-        - event: MilestoneStatusChanged(address,uint256,uint8)
-          handler: handleRecipientStatusChanged
-        - event: MilestoneSubmitted(address,uint256,(uint256,string))
-          handler: handleMilestoneSubmitted
-        - event: MilestoneStatusChanged(address,uint256,uint8)
-          handler: handleMilestoneStatusChanged
-        - event: MilestonesSet(address)
-          handler: handleMilestonesSet
-        - event: Registered(indexed address,bytes,address)
-          handler: handleRegistered
-        - event: PoolActive(bool)
-          handler: handlePoolActive
-      file: ./src/strategies/directGrantsSimple.ts

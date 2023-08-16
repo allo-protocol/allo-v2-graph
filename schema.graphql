@@ -104,19 +104,6 @@ type DonationVotingMerkleDistribution implements Strategy @entity {
   updatedAt: BigInt!
 }
 
-# id = strategyAddress.toHex()
-type DirectGrantsSimple implements Strategy @entity {
-  id: ID!
-  strategyName: String!
-  strategyAddress: String!
-  pool: Pool!
-  metadata: Metadata!
-  owner: Account!
-  members: [Account!]
-  createdAt: BigInt!
-  updatedAt: BigInt!
-}
-
 # id = recipientId.toHex()
 type Recipient @entity {
   id: ID!
