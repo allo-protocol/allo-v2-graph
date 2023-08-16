@@ -1,20 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { store } from "@graphprotocol/graph-ts";
 
 import {
-    ProfileCreated,
-    ProfileMetadataUpdated,
-    ProfileNameUpdated,
-    ProfileOwnerUpdated,
-    RoleAdminChanged,
-    RoleGranted,
-    RoleRevoked,
+  ProfileCreated,
+  ProfileMetadataUpdated,
+  ProfileNameUpdated,
+  ProfileOwnerUpdated,
+  RoleAdminChanged,
+  RoleGranted,
+  RoleRevoked,
 } from "../../generated/Registry/Registry";
 import { Metadata, Profile } from "../../generated/schema";
 import {
-    _upsertAccount,
-    _upsertMetadata,
-    _upsertRole,
-    _upsertRoleAccount,
+  _upsertAccount,
+  _upsertMetadata,
+  _upsertRole,
+  _upsertRoleAccount,
 } from "../utils";
 
 // NOTE: ProfileCreated event data

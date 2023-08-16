@@ -42,7 +42,7 @@ dataSources:
     source:
       address: "{{alloAddress}}"
       abi: Allo
-      # having a casing issue with this value for some reason - Expected BigInt, found map: '{ startBlock }': null
+      # having a casting issue with this value for some reason - Expected BigInt, found map: '{ startBlock }': null
       startBlock: 9476300
     mapping:
       kind: ethereum/events

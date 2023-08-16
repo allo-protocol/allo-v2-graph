@@ -75,13 +75,14 @@ export function _upsertRoleAccount(roleParam: Bytes, accountParam: Address): Rol
   const roleId = _upsertRole(roleParam);
   const accountId = _upsertAccount(accountParam);
  
-  const id = `${roleId}-${accountId}`;
+  const id = `${roleId}-${accountId.toHexString()}`;
 
   let roleAccountEntity = RoleAccount.load(id);
   if (roleAccountEntity == null) {
     roleAccountEntity = new RoleAccount(id);
     roleAccountEntity.role = roleId;
     roleAccountEntity.account = accountId;
+    roleAccountEntity.id = id;
     roleAccountEntity.save();
   }
   return roleAccountEntity;

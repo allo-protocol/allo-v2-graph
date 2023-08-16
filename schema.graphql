@@ -2,6 +2,7 @@
 # == Helper Entities == #
 #########################
 
+# id = `${protocol}-${pointer}`
 type Metadata @entity {
   id: ID!
   protocol: Int!,
@@ -61,7 +62,7 @@ type Pool @entity {
   id: ID!
   allo: Allo!
   token: Bytes!
-  amount : BigInt!
+  amount: BigInt!
   strategy: Bytes!
   metadata: Metadata!
   adminRole: Bytes!
@@ -70,6 +71,7 @@ type Pool @entity {
   members: [Account!]
   createdAt: BigInt!
   updatedAt: BigInt!
+  isPoolActive: Boolean!
 }
 
 ####################
@@ -112,6 +114,17 @@ type DirectGrantsSimple implements Strategy @entity {
   owner: Account!
   members: [Account!]
   createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+# id = recipientId.toHex()
+type Recipient @entity {
+  id: ID!
+  useRegistryAnchor: Boolean!
+  metadata: Metadata!
+  recipientAddress: Account!
+  grantAmount: BigInt!
+  recipientStatus: Int!
   updatedAt: BigInt!
 }
 
