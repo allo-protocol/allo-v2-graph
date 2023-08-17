@@ -7,15 +7,6 @@ import {
   RoleAccount,
 } from "../generated/schema";
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-enum InternalRecipientStatus {
-  None,
-  Pending,
-  Accepted,
-  Rejected,
-  Appealed
-}
-
 /**
  * Returns keccak256 of array after elements are joined by '-'
  * @param Array<string>
@@ -88,12 +79,12 @@ export function _upsertRoleAccount(roleParam: Bytes, accountParam: Address): Rol
   return roleAccountEntity;
 }
 
-// TODO: Finish this function
-export function _upsertAdminRole(roleParam: Bytes, accountParam: Address): RoleAccount {
-  const roleAccountEntity = _upsertRoleAccount(roleParam, accountParam);
+// // TODO: Finish this function
+// export function _upsertAdminRole(roleParam: Bytes, accountParam: Address): RoleAccount {
+//   const roleAccountEntity = _upsertRoleAccount(roleParam, accountParam);
 
-  return roleAccountEntity;
-}
+//   return roleAccountEntity;
+// }
 
 /**
  * Checks if Allo exists, if not creates new Allo

@@ -72,5 +72,4 @@ type Pool @entity {
   members: [Account!]
   createdAt: BigInt!
   updatedAt: BigInt!
-  isPoolActive: Boolean!
 }

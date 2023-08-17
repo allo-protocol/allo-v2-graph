@@ -18,8 +18,6 @@ import {
   _upsertRoleAccount,
 } from "../utils";
 
-// NOTE: ProfileCreated event data
-// bytes32 indexed profileId, uint256 nonce, string name, Metadata metadata, address owner, address anchor
 export function handleProfileCreated(event: ProfileCreated): void {
   // create new Metadata entity
   const _metadata = event.params.metadata;
@@ -113,9 +111,9 @@ export function handleRoleRevoked(event: RoleRevoked): void {
   store.remove('RoleAccount', roleAccountEntity.id);
 }
 
-export function handleRoleAdminChanged(event: RoleAdminChanged): void {
-  const roleParams = event.params.role;
-  const newAdmin = event.params.newAdminRole;
+// export function handleRoleAdminChanged(event: RoleAdminChanged): void {
+//   const roleParams = event.params.role;
+//   const newAdmin = event.params.newAdminRole;
 
-  const roleEntity = _upsertRole(roleParams);
-}
+//   const roleEntity = _upsertRole(roleParams);
+// }

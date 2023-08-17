@@ -13,13 +13,13 @@ import {
   StrategyApproved,
   StrategyRemoved,
   TreasuryUpdated
-} from "../../generated/Allo/Allo";
-import { Pool } from "../../generated/schema";
+} from "../generated/Allo/Allo";
+import { Pool } from "../generated/schema";
 import {
   _upsertAllo,
   _upsertMetadata,
   _upsertRoleAccount
-} from "../utils";
+} from "./utils";
 
 export function handleRegistryUpdated(event: RegistryUpdated): void {
   const allo = _upsertAllo();
