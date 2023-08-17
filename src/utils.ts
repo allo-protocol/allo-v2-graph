@@ -17,7 +17,7 @@ export function _generateID(array: Array<string>): string {
 }
 
 export function _upsertMetadata(protocol: i32, pointer: string): string {
-  const metadataId = _generateID([protocol.toString(), pointer.toString()]);
+  const metadataId = `${protocol}-${pointer}}`;
   const metadataEntity = new Metadata(metadataId);
   metadataEntity.protocol = protocol;
   metadataEntity.pointer = pointer;
@@ -66,7 +66,7 @@ export function _upsertRoleAccount(roleParam: Bytes, accountParam: Address): Rol
   const roleId = _upsertRole(roleParam);
   const accountId = _upsertAccount(accountParam);
  
-  const id = `${roleId}-${accountId.toHexString()}`;
+  const id = `${roleId.toHexString()}-${accountId.toHexString()}`;
 
   let roleAccountEntity = RoleAccount.load(id);
   if (roleAccountEntity == null) {
@@ -78,13 +78,6 @@ export function _upsertRoleAccount(roleParam: Bytes, accountParam: Address): Rol
   }
   return roleAccountEntity;
 }
-
-// // TODO: Finish this function
-// export function _upsertAdminRole(roleParam: Bytes, accountParam: Address): RoleAccount {
-//   const roleAccountEntity = _upsertRoleAccount(roleParam, accountParam);
-
-//   return roleAccountEntity;
-// }
 
 /**
  * Checks if Allo exists, if not creates new Allo

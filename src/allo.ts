@@ -1,4 +1,4 @@
-import { Bytes, log, store } from '@graphprotocol/graph-ts';
+import { BigInt, ByteArray, Bytes, crypto, log, store } from '@graphprotocol/graph-ts';
 import {
   BaseFeePaid,
   BaseFeeUpdated,
@@ -18,6 +18,7 @@ import { Pool } from "../generated/schema";
 import {
   _upsertAllo,
   _upsertMetadata,
+  _upsertRole,
   _upsertRoleAccount
 } from "./utils";
 
@@ -90,9 +91,17 @@ export function handlePoolCreated(event: PoolCreated): void {
   pool.token = event.params.token;
   pool.amount = event.params.amount;
 
-  // TODO: fix the roles / fetch from contract directly
-  pool.adminRole = Bytes.fromHexString("adminRole"); // bytes32(poolId)
-  pool.managerRole = Bytes.fromHexString("adminRole"); // keccak256(abi.encodePacked(poolId, "admin"))
+  pool.baseFeesPaid = BigInt.fromI32(0);
+
+  const managerRoleId = "0x" + poolId.toHexString().replace("0x", "").padStart(64, "0"); // bytes32(poolId)
+
+  // @dev: 61646d696e is admin in hex
+  const adminRoleId = crypto.keccak256(
+    ByteArray.fromHexString(managerRoleId.concat("61646d696e"))
+  ); // keccak256(abi.encodePacked(poolId, "admin"))
+
+  pool.managerRole = _upsertRole(Bytes.fromHexString(managerRoleId));
+  pool.adminRole = _upsertRole(Bytes.fromByteArray(adminRoleId));
 
   pool.createdAt = event.block.timestamp;
   pool.updatedAt = event.block.timestamp;

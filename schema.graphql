@@ -66,10 +66,10 @@ type Pool @entity {
   amount: BigInt!
   strategy: Bytes!
   metadata: Metadata!
-  adminRole: Bytes!
-  managerRole: Bytes!
-  owner: Account!
-  members: [Account!]
+  adminRole: Role!
+  managerRole: Role!
+  owner: Account
+  managers: [Account!]
   createdAt: BigInt!
   updatedAt: BigInt!
 }
