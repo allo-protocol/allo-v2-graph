@@ -7,7 +7,7 @@ dataSources:
     name: Registry
     network: {{network}}
     source:
-      address: '{{alloAddress}}'
+      address: '{{registryAddress}}'
       abi: Registry
       startBlock: {{startBlock}}
     mapping:
