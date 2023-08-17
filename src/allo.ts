@@ -1,4 +1,4 @@
-import { log, store } from '@graphprotocol/graph-ts';
+import { Bytes, log, store } from '@graphprotocol/graph-ts';
 import {
   BaseFeePaid,
   BaseFeeUpdated,
@@ -75,30 +75,29 @@ export function handleStrategyRemoved(event: StrategyRemoved): void {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function handlePoolCreated(event: PoolCreated): void {
 
   // create new Metadata entity
-  // const protocol = event.params.metadata[0].toI32();
-  // const pointer = event.params.metadata[1].toString();
-  // const metadataId = _upsertMetadata(protocol, pointer);
-  // const poolId = event.params.poolId;
+  const protocol = event.params.metadata[0].toI32();
+  const pointer = event.params.metadata[1].toString();
+  const metadataId = _upsertMetadata(protocol, pointer);
+  const poolId = event.params.poolId;
 
-  // const pool = new Pool(poolId.toString());
-  // pool.allo = _upsertAllo().id;
-  // pool.strategy = event.params.strategy;
-  // pool.metadata = metadataId;
-  // pool.token = event.params.token;
-  // pool.amount = event.params.amount;
+  const pool = new Pool(poolId.toString());
+  pool.allo = _upsertAllo().id;
+  pool.strategy = event.params.strategy;
+  pool.metadata = metadataId;
+  pool.token = event.params.token;
+  pool.amount = event.params.amount;
 
-  // // TODO: fix the roles / fetch from contract directly
-  // pool.adminRole = poolId; // bytes32(poolId)
-  // pool.managerRole = crypto.keccak256(ByteArray.fromUTF8(poolId, "admin")); // keccak256(abi.encodePacked(poolId, "admin"))
+  // TODO: fix the roles / fetch from contract directly
+  pool.adminRole = Bytes.fromHexString("adminRole"); // bytes32(poolId)
+  pool.managerRole = Bytes.fromHexString("adminRole"); // keccak256(abi.encodePacked(poolId, "admin"))
 
-  // pool.createdAt = event.block.timestamp;
-  // pool.updatedAt = event.block.timestamp;
+  pool.createdAt = event.block.timestamp;
+  pool.updatedAt = event.block.timestamp;
 
-  // pool.save();
+  pool.save();
 }
 
 export function handleBaseFeePaid(event: BaseFeePaid): void {

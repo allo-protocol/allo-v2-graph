@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { store } from "@graphprotocol/graph-ts";
-
 import {
   ProfileCreated,
   ProfileMetadataUpdated,
@@ -9,14 +7,14 @@ import {
   RoleAdminChanged,
   RoleGranted,
   RoleRevoked,
-} from "../../generated/Registry/Registry";
-import { Metadata, Profile } from "../../generated/schema";
+} from "../generated/Registry/Registry";
+import { Metadata, Profile } from "../generated/schema";
 import {
   _upsertAccount,
   _upsertMetadata,
   _upsertRole,
   _upsertRoleAccount,
-} from "../utils";
+} from "./utils";
 
 export function handleProfileCreated(event: ProfileCreated): void {
   // create new Metadata entity
