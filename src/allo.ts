@@ -144,7 +144,6 @@ export function handlePoolMetadataUpdated(event: PoolMetadataUpdated): void {
   pool.save();
 }
 
-// TODO: figure out how to track who the Pool admin is set / changed
 export function handleRoleGranted(event: RoleGranted): void {
   const roleParam = event.params.role;
   const accountParam = event.params.account;
@@ -160,13 +159,3 @@ export function handleRoleRevoked(event: RoleRevoked): void {
   const roleAccountEntity = _upsertRoleAccount(roleParam, accountParam);
   store.remove('RoleAccount', roleAccountEntity.id);
 }
-
-// TODO: figure out how to track who the Pool admin is set / changed
-export function handleRoleAdminChanged(event: RoleAdminChanged): void {
-  const roleParams = event.params.newAdminRole;
-  // FIXME: we need the new admin address?
-  // const newAdmin = event.params.role;
-
-  // const roleEntity = _upsertAdminRole(roleParams, newAdmin);
-}
-
