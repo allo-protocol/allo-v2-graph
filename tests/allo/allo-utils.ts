@@ -1,5 +1,6 @@
-import { newMockEvent } from "matchstick-as"
-import { ethereum, BigInt, Address, Bytes } from "@graphprotocol/graph-ts"
+/* eslint-disable @typescript-eslint/ban-types */
+import { Address, BigInt, Bytes, ethereum } from "@graphprotocol/graph-ts";
+import { newMockEvent } from "matchstick-as";
 import {
   BaseFeePaid,
   BaseFeeUpdated,
@@ -17,40 +18,40 @@ import {
   RoleRevoked,
   StrategyApproved,
   StrategyRemoved,
-  TreasuryUpdated
-} from "../generated/Allo/Allo"
+  TreasuryUpdated,
+} from "../../generated/Allo/Allo";
 
 export function createBaseFeePaidEvent(
   poolId: BigInt,
   amount: BigInt
 ): BaseFeePaid {
-  let baseFeePaidEvent = changetype<BaseFeePaid>(newMockEvent())
+  let baseFeePaidEvent = changetype<BaseFeePaid>(newMockEvent());
 
-  baseFeePaidEvent.parameters = new Array()
+  baseFeePaidEvent.parameters = [];
 
   baseFeePaidEvent.parameters.push(
     new ethereum.EventParam("poolId", ethereum.Value.fromUnsignedBigInt(poolId))
-  )
+  );
   baseFeePaidEvent.parameters.push(
     new ethereum.EventParam("amount", ethereum.Value.fromUnsignedBigInt(amount))
-  )
+  );
 
-  return baseFeePaidEvent
+  return baseFeePaidEvent;
 }
 
 export function createBaseFeeUpdatedEvent(baseFee: BigInt): BaseFeeUpdated {
-  let baseFeeUpdatedEvent = changetype<BaseFeeUpdated>(newMockEvent())
+  let baseFeeUpdatedEvent = changetype<BaseFeeUpdated>(newMockEvent());
 
-  baseFeeUpdatedEvent.parameters = new Array()
+  baseFeeUpdatedEvent.parameters = [];
 
   baseFeeUpdatedEvent.parameters.push(
     new ethereum.EventParam(
       "baseFee",
       ethereum.Value.fromUnsignedBigInt(baseFee)
     )
-  )
+  );
 
-  return baseFeeUpdatedEvent
+  return baseFeeUpdatedEvent;
 }
 
 export function createFeePercentageUpdatedEvent(
@@ -58,33 +59,33 @@ export function createFeePercentageUpdatedEvent(
 ): FeePercentageUpdated {
   let feePercentageUpdatedEvent = changetype<FeePercentageUpdated>(
     newMockEvent()
-  )
+  );
 
-  feePercentageUpdatedEvent.parameters = new Array()
+  feePercentageUpdatedEvent.parameters = [];
 
   feePercentageUpdatedEvent.parameters.push(
     new ethereum.EventParam(
       "feePercentage",
       ethereum.Value.fromUnsignedBigInt(feePercentage)
     )
-  )
+  );
 
-  return feePercentageUpdatedEvent
+  return feePercentageUpdatedEvent;
 }
 
 export function createInitializedEvent(version: i32): Initialized {
-  let initializedEvent = changetype<Initialized>(newMockEvent())
+  let initializedEvent = changetype<Initialized>(newMockEvent());
 
-  initializedEvent.parameters = new Array()
+  initializedEvent.parameters = [];
 
   initializedEvent.parameters.push(
     new ethereum.EventParam(
       "version",
       ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(version))
     )
-  )
+  );
 
-  return initializedEvent
+  return initializedEvent;
 }
 
 export function createOwnershipHandoverCanceledEvent(
@@ -92,18 +93,18 @@ export function createOwnershipHandoverCanceledEvent(
 ): OwnershipHandoverCanceled {
   let ownershipHandoverCanceledEvent = changetype<OwnershipHandoverCanceled>(
     newMockEvent()
-  )
+  );
 
-  ownershipHandoverCanceledEvent.parameters = new Array()
+  ownershipHandoverCanceledEvent.parameters = [];
 
   ownershipHandoverCanceledEvent.parameters.push(
     new ethereum.EventParam(
       "pendingOwner",
       ethereum.Value.fromAddress(pendingOwner)
     )
-  )
+  );
 
-  return ownershipHandoverCanceledEvent
+  return ownershipHandoverCanceledEvent;
 }
 
 export function createOwnershipHandoverRequestedEvent(
@@ -111,18 +112,18 @@ export function createOwnershipHandoverRequestedEvent(
 ): OwnershipHandoverRequested {
   let ownershipHandoverRequestedEvent = changetype<OwnershipHandoverRequested>(
     newMockEvent()
-  )
+  );
 
-  ownershipHandoverRequestedEvent.parameters = new Array()
+  ownershipHandoverRequestedEvent.parameters = [];
 
   ownershipHandoverRequestedEvent.parameters.push(
     new ethereum.EventParam(
       "pendingOwner",
       ethereum.Value.fromAddress(pendingOwner)
     )
-  )
+  );
 
-  return ownershipHandoverRequestedEvent
+  return ownershipHandoverRequestedEvent;
 }
 
 export function createOwnershipTransferredEvent(
@@ -131,18 +132,18 @@ export function createOwnershipTransferredEvent(
 ): OwnershipTransferred {
   let ownershipTransferredEvent = changetype<OwnershipTransferred>(
     newMockEvent()
-  )
+  );
 
-  ownershipTransferredEvent.parameters = new Array()
+  ownershipTransferredEvent.parameters = [];
 
   ownershipTransferredEvent.parameters.push(
     new ethereum.EventParam("oldOwner", ethereum.Value.fromAddress(oldOwner))
-  )
+  );
   ownershipTransferredEvent.parameters.push(
     new ethereum.EventParam("newOwner", ethereum.Value.fromAddress(newOwner))
-  )
+  );
 
-  return ownershipTransferredEvent
+  return ownershipTransferredEvent;
 }
 
 export function createPoolCreatedEvent(
@@ -153,33 +154,33 @@ export function createPoolCreatedEvent(
   amount: BigInt,
   metadata: ethereum.Tuple
 ): PoolCreated {
-  let poolCreatedEvent = changetype<PoolCreated>(newMockEvent())
+  let poolCreatedEvent = changetype<PoolCreated>(newMockEvent());
 
-  poolCreatedEvent.parameters = new Array()
+  poolCreatedEvent.parameters = [];
 
   poolCreatedEvent.parameters.push(
     new ethereum.EventParam("poolId", ethereum.Value.fromUnsignedBigInt(poolId))
-  )
+  );
   poolCreatedEvent.parameters.push(
     new ethereum.EventParam(
       "identityId",
       ethereum.Value.fromFixedBytes(identityId)
     )
-  )
+  );
   poolCreatedEvent.parameters.push(
     new ethereum.EventParam("strategy", ethereum.Value.fromAddress(strategy))
-  )
+  );
   poolCreatedEvent.parameters.push(
     new ethereum.EventParam("token", ethereum.Value.fromAddress(token))
-  )
+  );
   poolCreatedEvent.parameters.push(
     new ethereum.EventParam("amount", ethereum.Value.fromUnsignedBigInt(amount))
-  )
+  );
   poolCreatedEvent.parameters.push(
     new ethereum.EventParam("metadata", ethereum.Value.fromTuple(metadata))
-  )
+  );
 
-  return poolCreatedEvent
+  return poolCreatedEvent;
 }
 
 export function createPoolFundedEvent(
@@ -187,51 +188,53 @@ export function createPoolFundedEvent(
   amount: BigInt,
   fee: BigInt
 ): PoolFunded {
-  let poolFundedEvent = changetype<PoolFunded>(newMockEvent())
+  let poolFundedEvent = changetype<PoolFunded>(newMockEvent());
 
-  poolFundedEvent.parameters = new Array()
+  poolFundedEvent.parameters = [];
 
   poolFundedEvent.parameters.push(
     new ethereum.EventParam("poolId", ethereum.Value.fromUnsignedBigInt(poolId))
-  )
+  );
   poolFundedEvent.parameters.push(
     new ethereum.EventParam("amount", ethereum.Value.fromUnsignedBigInt(amount))
-  )
+  );
   poolFundedEvent.parameters.push(
     new ethereum.EventParam("fee", ethereum.Value.fromUnsignedBigInt(fee))
-  )
+  );
 
-  return poolFundedEvent
+  return poolFundedEvent;
 }
 
 export function createPoolMetadataUpdatedEvent(
   poolId: BigInt,
   metadata: ethereum.Tuple
 ): PoolMetadataUpdated {
-  let poolMetadataUpdatedEvent = changetype<PoolMetadataUpdated>(newMockEvent())
+  let poolMetadataUpdatedEvent = changetype<PoolMetadataUpdated>(
+    newMockEvent()
+  );
 
-  poolMetadataUpdatedEvent.parameters = new Array()
+  poolMetadataUpdatedEvent.parameters = [];
 
   poolMetadataUpdatedEvent.parameters.push(
     new ethereum.EventParam("poolId", ethereum.Value.fromUnsignedBigInt(poolId))
-  )
+  );
   poolMetadataUpdatedEvent.parameters.push(
     new ethereum.EventParam("metadata", ethereum.Value.fromTuple(metadata))
-  )
+  );
 
-  return poolMetadataUpdatedEvent
+  return poolMetadataUpdatedEvent;
 }
 
 export function createRegistryUpdatedEvent(registry: Address): RegistryUpdated {
-  let registryUpdatedEvent = changetype<RegistryUpdated>(newMockEvent())
+  let registryUpdatedEvent = changetype<RegistryUpdated>(newMockEvent());
 
-  registryUpdatedEvent.parameters = new Array()
+  registryUpdatedEvent.parameters = [];
 
   registryUpdatedEvent.parameters.push(
     new ethereum.EventParam("registry", ethereum.Value.fromAddress(registry))
-  )
+  );
 
-  return registryUpdatedEvent
+  return registryUpdatedEvent;
 }
 
 export function createRoleAdminChangedEvent(
@@ -239,27 +242,27 @@ export function createRoleAdminChangedEvent(
   previousAdminRole: Bytes,
   newAdminRole: Bytes
 ): RoleAdminChanged {
-  let roleAdminChangedEvent = changetype<RoleAdminChanged>(newMockEvent())
+  let roleAdminChangedEvent = changetype<RoleAdminChanged>(newMockEvent());
 
-  roleAdminChangedEvent.parameters = new Array()
+  roleAdminChangedEvent.parameters = [];
 
   roleAdminChangedEvent.parameters.push(
     new ethereum.EventParam("role", ethereum.Value.fromFixedBytes(role))
-  )
+  );
   roleAdminChangedEvent.parameters.push(
     new ethereum.EventParam(
       "previousAdminRole",
       ethereum.Value.fromFixedBytes(previousAdminRole)
     )
-  )
+  );
   roleAdminChangedEvent.parameters.push(
     new ethereum.EventParam(
       "newAdminRole",
       ethereum.Value.fromFixedBytes(newAdminRole)
     )
-  )
+  );
 
-  return roleAdminChangedEvent
+  return roleAdminChangedEvent;
 }
 
 export function createRoleGrantedEvent(
@@ -267,21 +270,21 @@ export function createRoleGrantedEvent(
   account: Address,
   sender: Address
 ): RoleGranted {
-  let roleGrantedEvent = changetype<RoleGranted>(newMockEvent())
+  let roleGrantedEvent = changetype<RoleGranted>(newMockEvent());
 
-  roleGrantedEvent.parameters = new Array()
+  roleGrantedEvent.parameters = [];
 
   roleGrantedEvent.parameters.push(
     new ethereum.EventParam("role", ethereum.Value.fromFixedBytes(role))
-  )
+  );
   roleGrantedEvent.parameters.push(
     new ethereum.EventParam("account", ethereum.Value.fromAddress(account))
-  )
+  );
   roleGrantedEvent.parameters.push(
     new ethereum.EventParam("sender", ethereum.Value.fromAddress(sender))
-  )
+  );
 
-  return roleGrantedEvent
+  return roleGrantedEvent;
 }
 
 export function createRoleRevokedEvent(
@@ -289,57 +292,57 @@ export function createRoleRevokedEvent(
   account: Address,
   sender: Address
 ): RoleRevoked {
-  let roleRevokedEvent = changetype<RoleRevoked>(newMockEvent())
+  let roleRevokedEvent = changetype<RoleRevoked>(newMockEvent());
 
-  roleRevokedEvent.parameters = new Array()
+  roleRevokedEvent.parameters = [];
 
   roleRevokedEvent.parameters.push(
     new ethereum.EventParam("role", ethereum.Value.fromFixedBytes(role))
-  )
+  );
   roleRevokedEvent.parameters.push(
     new ethereum.EventParam("account", ethereum.Value.fromAddress(account))
-  )
+  );
   roleRevokedEvent.parameters.push(
     new ethereum.EventParam("sender", ethereum.Value.fromAddress(sender))
-  )
+  );
 
-  return roleRevokedEvent
+  return roleRevokedEvent;
 }
 
 export function createStrategyApprovedEvent(
   strategy: Address
 ): StrategyApproved {
-  let strategyApprovedEvent = changetype<StrategyApproved>(newMockEvent())
+  let strategyApprovedEvent = changetype<StrategyApproved>(newMockEvent());
 
-  strategyApprovedEvent.parameters = new Array()
+  strategyApprovedEvent.parameters = [];
 
   strategyApprovedEvent.parameters.push(
     new ethereum.EventParam("strategy", ethereum.Value.fromAddress(strategy))
-  )
+  );
 
-  return strategyApprovedEvent
+  return strategyApprovedEvent;
 }
 
 export function createStrategyRemovedEvent(strategy: Address): StrategyRemoved {
-  let strategyRemovedEvent = changetype<StrategyRemoved>(newMockEvent())
+  let strategyRemovedEvent = changetype<StrategyRemoved>(newMockEvent());
 
-  strategyRemovedEvent.parameters = new Array()
+  strategyRemovedEvent.parameters = [];
 
   strategyRemovedEvent.parameters.push(
     new ethereum.EventParam("strategy", ethereum.Value.fromAddress(strategy))
-  )
+  );
 
-  return strategyRemovedEvent
+  return strategyRemovedEvent;
 }
 
 export function createTreasuryUpdatedEvent(treasury: Address): TreasuryUpdated {
-  let treasuryUpdatedEvent = changetype<TreasuryUpdated>(newMockEvent())
+  let treasuryUpdatedEvent = changetype<TreasuryUpdated>(newMockEvent());
 
-  treasuryUpdatedEvent.parameters = new Array()
+  treasuryUpdatedEvent.parameters = [];
 
   treasuryUpdatedEvent.parameters.push(
     new ethereum.EventParam("treasury", ethereum.Value.fromAddress(treasury))
-  )
+  );
 
-  return treasuryUpdatedEvent
+  return treasuryUpdatedEvent;
 }

@@ -1,10 +1,10 @@
 import { store } from "@graphprotocol/graph-ts";
-
 import {
   ProfileCreated,
   ProfileMetadataUpdated,
   ProfileNameUpdated,
   ProfileOwnerUpdated,
+  RoleAdminChanged,
   RoleGranted,
   RoleRevoked,
 } from "../generated/Registry/Registry";
@@ -19,11 +19,11 @@ import {
 export function handleProfileCreated(event: ProfileCreated): void {
   // create new Metadata entity
   const _metadata = event.params.metadata;
-  const metadataId = event.transaction.hash;
-  const metadata = new Metadata(metadataId.toString());
-  metadata.protocol = _metadata[0].toI32();
-  metadata.pointer = _metadata[1].toString();
-  metadata.save();
+
+  const protocol = _metadata[0].toI32();
+  const pointer = _metadata[1].toString();
+
+  const metadataId = _upsertMetadata(protocol, pointer)
 
   const profileId = event.params.profileId;
 
@@ -57,7 +57,7 @@ export function handleProfileMetadataUpdated(
     return;
   }
 
-  // create new MetaPtr entity
+  // create new Metadata entity
   const protocol = event.params.metadata[0].toI32();
   const pointer = event.params.metadata[1].toString();
   const metadataId = _upsertMetadata(protocol, pointer);

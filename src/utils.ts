@@ -17,7 +17,7 @@ export function _generateID(array: Array<string>): string {
 }
 
 export function _upsertMetadata(protocol: i32, pointer: string): string {
-  const metadataId = _generateID([protocol.toString(), pointer.toString()]);
+  const metadataId = `${protocol}-${pointer}}`;
   const metadataEntity = new Metadata(metadataId);
   metadataEntity.protocol = protocol;
   metadataEntity.pointer = pointer;
@@ -66,13 +66,14 @@ export function _upsertRoleAccount(roleParam: Bytes, accountParam: Address): Rol
   const roleId = _upsertRole(roleParam);
   const accountId = _upsertAccount(accountParam);
  
-  const id = `${roleId}-${accountId}`;
+  const id = `${roleId.toHexString()}-${accountId.toHexString()}`;
 
   let roleAccountEntity = RoleAccount.load(id);
   if (roleAccountEntity == null) {
     roleAccountEntity = new RoleAccount(id);
     roleAccountEntity.role = roleId;
     roleAccountEntity.account = accountId;
+    roleAccountEntity.id = id;
     roleAccountEntity.save();
   }
   return roleAccountEntity;

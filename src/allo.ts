@@ -1,12 +1,13 @@
-import { Bytes, ByteArray, crypto, store, log } from '@graphprotocol/graph-ts';
+import { BigInt, ByteArray, Bytes, crypto, log, store } from '@graphprotocol/graph-ts';
 import {
+  BaseFeePaid,
   BaseFeeUpdated,
   FeePercentageUpdated,
   PoolCreated,
   PoolFunded,
   PoolMetadataUpdated,
   RegistryUpdated,
-  // RoleAdminChanged,
+  RoleAdminChanged,
   RoleGranted,
   RoleRevoked,
   StrategyApproved,
@@ -17,9 +18,9 @@ import { Pool } from "../generated/schema";
 import {
   _upsertAllo,
   _upsertMetadata,
+  _upsertRole,
   _upsertRoleAccount
 } from "./utils";
-
 
 export function handleRegistryUpdated(event: RegistryUpdated): void {
   const allo = _upsertAllo();
@@ -77,27 +78,44 @@ export function handleStrategyRemoved(event: StrategyRemoved): void {
 
 export function handlePoolCreated(event: PoolCreated): void {
 
-  // create new MetaPtr entity
-  // const protocol = event.params.metadata[0].toI32();
-  // const pointer = event.params.metadata[1].toString();
-  // const metadataId = _upsertMetadata(protocol, pointer);
-  // const poolId = event.params.poolId;
+  // create new Metadata entity
+  const protocol = event.params.metadata[0].toI32();
+  const pointer = event.params.metadata[1].toString();
+  const metadataId = _upsertMetadata(protocol, pointer);
+  const poolId = event.params.poolId;
 
-  // const pool = new Pool(poolId.toString());
-  // pool.allo = _upsertAllo().id;
-  // pool.strategy = event.params.strategy;
-  // pool.metadata = metadataId;
-  // pool.token = event.params.token;
-  // pool.amount = event.params.amount;
+  const pool = new Pool(poolId.toString());
+  pool.allo = _upsertAllo().id;
+  pool.strategy = event.params.strategy;
+  pool.metadata = metadataId;
+  pool.token = event.params.token;
+  pool.amount = event.params.amount;
 
-  // // TODO: fix the roles / fetch from contract directly
-  // pool.adminRole = poolId; // bytes32(poolId)
-  // pool.managerRole = crypto.keccak256(ByteArray.fromUTF8(poolId, "admin")); // keccak256(abi.encodePacked(poolId, "admin"))
+  pool.baseFeesPaid = BigInt.fromI32(0);
 
-  // pool.createdAt = event.block.timestamp;
-  // pool.updatedAt = event.block.timestamp;
+  const managerRoleId = "0x" + poolId.toHexString().replace("0x", "").padStart(64, "0"); // bytes32(poolId)
 
-  // pool.save();
+  // @dev: 61646d696e is admin in hex
+  const adminRoleId = crypto.keccak256(
+    ByteArray.fromHexString(managerRoleId.concat("61646d696e"))
+  ); // keccak256(abi.encodePacked(poolId, "admin"))
+
+  pool.managerRole = _upsertRole(Bytes.fromHexString(managerRoleId));
+  pool.adminRole = _upsertRole(Bytes.fromByteArray(adminRoleId));
+
+  pool.createdAt = event.block.timestamp;
+  pool.updatedAt = event.block.timestamp;
+
+  pool.save();
+}
+
+export function handleBaseFeePaid(event: BaseFeePaid): void {
+  const pool = Pool.load(event.params.poolId.toString());
+  if (pool == null) {
+    return ;
+  }
+  pool.baseFeesPaid.plus(event.params.amount);
+  pool.save();
 }
 
 export function handlePoolFunded(event: PoolFunded): void {
@@ -116,7 +134,7 @@ export function handlePoolMetadataUpdated(event: PoolMetadataUpdated): void {
     return ;
   }
 
-  // create new MetaPtr entity
+  // create new Metadata entity
   const protocol = event.params.metadata[0].toI32();
   const pointer = event.params.metadata[1].toString();
   const metadataId = _upsertMetadata(protocol, pointer);
@@ -126,12 +144,6 @@ export function handlePoolMetadataUpdated(event: PoolMetadataUpdated): void {
   pool.save();
 }
 
-
-// export function handleRoleAdminChanged(event: RoleAdminChanged): void {
-//   // TODO: check if this is needed cause this ideally wouldn't change
-// }
-
-// TODO: figure out how to track who the Pool admin is set / changed
 export function handleRoleGranted(event: RoleGranted): void {
   const roleParam = event.params.role;
   const accountParam = event.params.account;
@@ -147,4 +159,3 @@ export function handleRoleRevoked(event: RoleRevoked): void {
   const roleAccountEntity = _upsertRoleAccount(roleParam, accountParam);
   store.remove('RoleAccount', roleAccountEntity.id);
 }
-

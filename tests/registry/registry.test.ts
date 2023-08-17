@@ -1,90 +1,124 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { BigInt, Bytes, ethereum } from "@graphprotocol/graph-ts";
 import {
-  assert,
-  describe,
-  test,
-  clearStore,
+  afterAll,
   beforeAll,
-  afterAll
-} from "matchstick-as/assembly/index"
-import { Bytes, BigInt, Address } from "@graphprotocol/graph-ts"
-import { ExampleEntity } from "../generated/schema"
-import { IdentityCreated } from "../generated/Registry/Registry"
-import { handleIdentityCreated } from "../../src/registry"
-import { createIdentityCreatedEvent } from "./registry-utils"
+  clearStore,
+  describe,
+  test
+} from "matchstick-as/assembly/index";
 
 // Tests structure (matchstick-as >=0.5.0)
 // https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0
 
-describe("Describe entity assertions", () => {
+describe("Registry entity assertions", () => {
   beforeAll(() => {
-    let identityId = Bytes.fromI32(1234567890)
-    let nonce = BigInt.fromI32(234)
-    let name = "Example string value"
-    let metadata = "ethereum.Tuple Not implemented"
-    let owner = Address.fromString("0x0000000000000000000000000000000000000001")
-    let anchor = Address.fromString(
-      "0x0000000000000000000000000000000000000001"
-    )
-    let newIdentityCreatedEvent = createIdentityCreatedEvent(
-      identityId,
-      nonce,
-      name,
-      metadata,
-      owner,
-      anchor
-    )
-    handleIdentityCreated(newIdentityCreatedEvent)
-  })
+    const profileId = Bytes.fromI32(1234567890);
+    const nonce = BigInt.fromI32(234);
+    const name = "Example string value";
+    const metadata: Array<ethereum.Value> = [
+      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(1)),
+      ethereum.Value.fromString("pointer"),
+    ];
+    // need to make metadata a ethereum.Tuple
+    // const metadataTuple: ethereum.Tuple = metadata;
+  
+    // const owner = Address.fromString(
+    //   "0x0000000000000000000000000000000000000001"
+    // );
+    // const anchor = Address.fromString(
+    //   "0x0000000000000000000000000000000000000001"
+    // );
+    // const newProfileCreatedEvent = createProfileCreatedEvent(
+    //   profileId,
+    //   nonce,
+    //   name,
+    //   metadataTuple,
+    //   owner,
+    //   anchor
+    // );
+    // handleProfileCreated(newProfileCreatedEvent);
+  });
 
   afterAll(() => {
-    clearStore()
-  })
+    clearStore();
+  });
 
   // For more test scenarios, see:
   // https://thegraph.com/docs/en/developer/matchstick/#write-a-unit-test
 
-  test("ExampleEntity created and stored", () => {
-    assert.entityCount("ExampleEntity", 1)
+  test("Profile created and stored", () => {
+    // assert.entityCount("Profile", 1);
 
     // 0xa16081f360e3847006db660bae1c6d1b2e17ec2a is the default address used in newMockEvent() function
-    assert.fieldEquals(
-      "ExampleEntity",
-      "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
-      "identityId",
-      "1234567890"
-    )
-    assert.fieldEquals(
-      "ExampleEntity",
-      "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
-      "nonce",
-      "234"
-    )
-    assert.fieldEquals(
-      "ExampleEntity",
-      "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
-      "name",
-      "Example string value"
-    )
-    assert.fieldEquals(
-      "ExampleEntity",
-      "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
-      "metadata",
-      "ethereum.Tuple Not implemented"
-    )
-    assert.fieldEquals(
-      "ExampleEntity",
-      "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
-      "owner",
-      "0x0000000000000000000000000000000000000001"
-    )
-    assert.fieldEquals(
-      "ExampleEntity",
-      "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
-      "anchor",
-      "0x0000000000000000000000000000000000000001"
-    )
+    // assert.fieldEquals(
+    //   "Profile",
+    //   "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
+    //   "profileId",
+    //   "1234567890"
+    // );
+    // assert.fieldEquals(
+    //   "Profile",
+    //   "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
+    //   "nonce",
+    //   "234"
+    // );
+    // assert.fieldEquals(
+    //   "Profile",
+    //   "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
+    //   "name",
+    //   "Example string value"
+    // );
+    // assert.fieldEquals(
+    //   "Profile",
+    //   "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
+    //   "metadata",
+    //   "ethereum.Tuple Not implemented"
+    // );
+    // assert.fieldEquals(
+    //   "Profile",
+    //   "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
+    //   "owner",
+    //   "0x0000000000000000000000000000000000000001"
+    // );
+    // assert.fieldEquals(
+    //   "Profile",
+    //   "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
+    //   "anchor",
+    //   "0x0000000000000000000000000000000000000001"
+    // );
 
     // More assert options:
     // https://thegraph.com/docs/en/developer/matchstick/#asserts
-  })
-})
+  });
+
+  test("handleProfileCreated", () => {
+    // TODO: implement
+  });
+
+  test("handleProfileMetadataUpdated()", () => {
+    // TODO: implement
+  });
+
+  test("handleProfileNameUpdated()", () => {
+    // TODO: implement
+  });
+
+  test("handleProfileOwnerUpdated()", () => {
+    // TODO: implement
+  });
+
+  // NOTE: handle the way we check the admin roles
+
+  test("handleRoleGranted()", () => {
+    // TODO: implement
+  });
+
+  test("handleRoleRevoked()", () => {
+    // TODO: implement
+  });
+
+  test("handleRoleAdminChanged()", () => {
+    // TODO: implement
+  });
+});

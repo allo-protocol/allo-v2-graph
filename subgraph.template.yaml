@@ -9,7 +9,7 @@ dataSources:
     source:
       address: '{{registryAddress}}'
       abi: Registry
-      startBlock: {{ startBlock }}
+      startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -40,19 +40,19 @@ dataSources:
     source:
       address: '{{alloAddress}}'
       abi: Allo
-      startBlock: {{ startBlock }}
+      startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
+        - BaseFeePaid
         - BaseFeeUpdated
         - FeePercentageUpdated
         - PoolCreated
         - PoolFunded
         - PoolMetadataUpdated
         - RegistryUpdated
-        # - RoleAdminChanged
         - RoleGranted
         - RoleRevoked
         - StrategyApproved
@@ -74,8 +74,6 @@ dataSources:
           handler: handlePoolMetadataUpdated
         - event: RegistryUpdated(address)
           handler: handleRegistryUpdated
-  #       - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
-  #         handler: handleRoleAdminChanged
         - event: RoleGranted(indexed bytes32,indexed address,indexed address)
           handler: handleRoleGranted
         - event: RoleRevoked(indexed bytes32,indexed address,indexed address)

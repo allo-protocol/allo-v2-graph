@@ -2,6 +2,7 @@
 # == Helper Entities == #
 #########################
 
+# id = `${protocol}-${pointer}`
 type Metadata @entity {
   id: ID!
   protocol: Int!,
@@ -61,13 +62,14 @@ type Pool @entity {
   id: ID!
   allo: Allo!
   token: Bytes!
-  amount : BigInt!
+  baseFeesPaid: BigInt!
+  amount: BigInt!
   strategy: Bytes!
   metadata: Metadata!
-  adminRole: Bytes!
-  managerRole: Bytes!
-  owner: Account!
-  members: [Account!]
+  adminRole: Role!
+  managerRole: Role!
+  owner: Account
+  managers: [Account!]
   createdAt: BigInt!
   updatedAt: BigInt!
 }

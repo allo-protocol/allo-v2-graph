@@ -1,148 +1,150 @@
-import { newMockEvent } from "matchstick-as"
-import { ethereum, Bytes, BigInt, Address } from "@graphprotocol/graph-ts"
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Address, BigInt, Bytes, ethereum } from "@graphprotocol/graph-ts";
+import { newMockEvent } from "matchstick-as";
 import {
-  IdentityCreated,
-  IdentityMetadataUpdated,
-  IdentityNameUpdated,
-  IdentityOwnerUpdated,
-  IdentityPendingOwnerUpdated,
+  ProfileCreated,
+  ProfileMetadataUpdated,
+  ProfileNameUpdated,
+  ProfileOwnerUpdated,
+  ProfilePendingOwnerUpdated,
   RoleAdminChanged,
   RoleGranted,
-  RoleRevoked
-} from "../generated/Registry/Registry"
+  RoleRevoked,
+} from "../../generated/Registry/Registry";
 
-export function createIdentityCreatedEvent(
-  identityId: Bytes,
+export function createProfileCreatedEvent(
+  profileId: Bytes,
   nonce: BigInt,
   name: string,
   metadata: ethereum.Tuple,
   owner: Address,
   anchor: Address
-): IdentityCreated {
-  let identityCreatedEvent = changetype<IdentityCreated>(newMockEvent())
+): ProfileCreated {
+  const profileCreatedEvent = changetype<ProfileCreated>(newMockEvent());
 
-  identityCreatedEvent.parameters = new Array()
+  // profileCreatedEvent.parameters = new Array();
+  // profileCreatedEvent.parameters.push(
+  //   new ethereum.EventParam(
+  //     "profileId",
+  //     ethereum.Value.fromFixedBytes(profileId)
+  //   )
+  // );
+  // profileCreatedEvent.parameters.push(
+  //   new ethereum.EventParam("nonce", ethereum.Value.fromUnsignedBigInt(nonce))
+  // );
+  // profileCreatedEvent.parameters.push(
+  //   new ethereum.EventParam("name", ethereum.Value.fromString(name))
+  // );
+  // profileCreatedEvent.parameters.push(
+  //   new ethereum.EventParam("metadata", ethereum.Value.fromTuple(metadata))
+  // );
+  // profileCreatedEvent.parameters.push(
+  //   new ethereum.EventParam("owner", ethereum.Value.fromAddress(owner))
+  // );
+  // profileCreatedEvent.parameters.push(
+  //   new ethereum.EventParam("anchor", ethereum.Value.fromAddress(anchor))
+  // );
 
-  identityCreatedEvent.parameters.push(
-    new ethereum.EventParam(
-      "identityId",
-      ethereum.Value.fromFixedBytes(identityId)
-    )
-  )
-  identityCreatedEvent.parameters.push(
-    new ethereum.EventParam("nonce", ethereum.Value.fromUnsignedBigInt(nonce))
-  )
-  identityCreatedEvent.parameters.push(
-    new ethereum.EventParam("name", ethereum.Value.fromString(name))
-  )
-  identityCreatedEvent.parameters.push(
-    new ethereum.EventParam("metadata", ethereum.Value.fromTuple(metadata))
-  )
-  identityCreatedEvent.parameters.push(
-    new ethereum.EventParam("owner", ethereum.Value.fromAddress(owner))
-  )
-  identityCreatedEvent.parameters.push(
-    new ethereum.EventParam("anchor", ethereum.Value.fromAddress(anchor))
-  )
-
-  return identityCreatedEvent
+  return profileCreatedEvent;
 }
 
-export function createIdentityMetadataUpdatedEvent(
-  identityId: Bytes,
+export function createProfileMetadataUpdatedEvent(
+  profileId: Bytes,
   metadata: ethereum.Tuple
-): IdentityMetadataUpdated {
-  let identityMetadataUpdatedEvent = changetype<IdentityMetadataUpdated>(
+): ProfileMetadataUpdated {
+  const profileMetadataUpdatedEvent = changetype<ProfileMetadataUpdated>(
     newMockEvent()
-  )
+  );
 
-  identityMetadataUpdatedEvent.parameters = new Array()
+  // profileMetadataUpdatedEvent.parameters = new Array();
 
-  identityMetadataUpdatedEvent.parameters.push(
-    new ethereum.EventParam(
-      "identityId",
-      ethereum.Value.fromFixedBytes(identityId)
-    )
-  )
-  identityMetadataUpdatedEvent.parameters.push(
-    new ethereum.EventParam("metadata", ethereum.Value.fromTuple(metadata))
-  )
+  // profileMetadataUpdatedEvent.parameters.push(
+  //   new ethereum.EventParam(
+  //     "profileId",
+  //     ethereum.Value.fromFixedBytes(profileId)
+  //   )
+  // );
+  // profileMetadataUpdatedEvent.parameters.push(
+  //   new ethereum.EventParam("metadata", ethereum.Value.fromTuple(metadata))
+  // );
 
-  return identityMetadataUpdatedEvent
+  return profileMetadataUpdatedEvent;
 }
 
-export function createIdentityNameUpdatedEvent(
-  identityId: Bytes,
+export function createProfileNameUpdatedEvent(
+  profileId: Bytes,
   name: string,
   anchor: Address
-): IdentityNameUpdated {
-  let identityNameUpdatedEvent = changetype<IdentityNameUpdated>(newMockEvent())
-
-  identityNameUpdatedEvent.parameters = new Array()
-
-  identityNameUpdatedEvent.parameters.push(
-    new ethereum.EventParam(
-      "identityId",
-      ethereum.Value.fromFixedBytes(identityId)
-    )
-  )
-  identityNameUpdatedEvent.parameters.push(
-    new ethereum.EventParam("name", ethereum.Value.fromString(name))
-  )
-  identityNameUpdatedEvent.parameters.push(
-    new ethereum.EventParam("anchor", ethereum.Value.fromAddress(anchor))
-  )
-
-  return identityNameUpdatedEvent
-}
-
-export function createIdentityOwnerUpdatedEvent(
-  identityId: Bytes,
-  owner: Address
-): IdentityOwnerUpdated {
-  let identityOwnerUpdatedEvent = changetype<IdentityOwnerUpdated>(
+): ProfileNameUpdated {
+  const profileNameUpdatedEvent = changetype<ProfileNameUpdated>(
     newMockEvent()
-  )
+  );
 
-  identityOwnerUpdatedEvent.parameters = new Array()
+  // profileNameUpdatedEvent.parameters = new Array();
 
-  identityOwnerUpdatedEvent.parameters.push(
-    new ethereum.EventParam(
-      "identityId",
-      ethereum.Value.fromFixedBytes(identityId)
-    )
-  )
-  identityOwnerUpdatedEvent.parameters.push(
-    new ethereum.EventParam("owner", ethereum.Value.fromAddress(owner))
-  )
+  // profileNameUpdatedEvent.parameters.push(
+  //   new ethereum.EventParam(
+  //     "profileId",
+  //     ethereum.Value.fromFixedBytes(profileId)
+  //   )
+  // );
+  // profileNameUpdatedEvent.parameters.push(
+  //   new ethereum.EventParam("name", ethereum.Value.fromString(name))
+  // );
+  // profileNameUpdatedEvent.parameters.push(
+  //   new ethereum.EventParam("anchor", ethereum.Value.fromAddress(anchor))
+  // );
 
-  return identityOwnerUpdatedEvent
+  return profileNameUpdatedEvent;
 }
 
-export function createIdentityPendingOwnerUpdatedEvent(
-  identityId: Bytes,
+export function createProfileOwnerUpdatedEvent(
+  profileId: Bytes,
+  owner: Address
+): ProfileOwnerUpdated {
+  const profileOwnerUpdatedEvent = changetype<ProfileOwnerUpdated>(
+    newMockEvent()
+  );
+
+  // profileOwnerUpdatedEvent.parameters = new Array();
+
+  // profileOwnerUpdatedEvent.parameters.push(
+  //   new ethereum.EventParam(
+  //     "profileId",
+  //     ethereum.Value.fromFixedBytes(profileId)
+  //   )
+  // );
+  // profileOwnerUpdatedEvent.parameters.push(
+  //   new ethereum.EventParam("owner", ethereum.Value.fromAddress(owner))
+  // );
+
+  return profileOwnerUpdatedEvent;
+}
+
+export function createProfilePendingOwnerUpdatedEvent(
+  profileId: Bytes,
   pendingOwner: Address
-): IdentityPendingOwnerUpdated {
-  let identityPendingOwnerUpdatedEvent = changetype<
-    IdentityPendingOwnerUpdated
-  >(newMockEvent())
+): ProfilePendingOwnerUpdated {
+  const profilePendingOwnerUpdatedEvent =
+    changetype<ProfilePendingOwnerUpdated>(newMockEvent());
 
-  identityPendingOwnerUpdatedEvent.parameters = new Array()
+  // profilePendingOwnerUpdatedEvent.parameters = new Array();
 
-  identityPendingOwnerUpdatedEvent.parameters.push(
-    new ethereum.EventParam(
-      "identityId",
-      ethereum.Value.fromFixedBytes(identityId)
-    )
-  )
-  identityPendingOwnerUpdatedEvent.parameters.push(
-    new ethereum.EventParam(
-      "pendingOwner",
-      ethereum.Value.fromAddress(pendingOwner)
-    )
-  )
+  // profilePendingOwnerUpdatedEvent.parameters.push(
+  //   new ethereum.EventParam(
+  //     "profileId",
+  //     ethereum.Value.fromFixedBytes(profileId)
+  //   )
+  // );
+  // profilePendingOwnerUpdatedEvent.parameters.push(
+  //   new ethereum.EventParam(
+  //     "pendingOwner",
+  //     ethereum.Value.fromAddress(pendingOwner)
+  //   )
+  // );
 
-  return identityPendingOwnerUpdatedEvent
+  return profilePendingOwnerUpdatedEvent;
 }
 
 export function createRoleAdminChangedEvent(
@@ -150,27 +152,27 @@ export function createRoleAdminChangedEvent(
   previousAdminRole: Bytes,
   newAdminRole: Bytes
 ): RoleAdminChanged {
-  let roleAdminChangedEvent = changetype<RoleAdminChanged>(newMockEvent())
+  const roleAdminChangedEvent = changetype<RoleAdminChanged>(newMockEvent());
 
-  roleAdminChangedEvent.parameters = new Array()
+  // roleAdminChangedEvent.parameters = new Array();
 
-  roleAdminChangedEvent.parameters.push(
-    new ethereum.EventParam("role", ethereum.Value.fromFixedBytes(role))
-  )
-  roleAdminChangedEvent.parameters.push(
-    new ethereum.EventParam(
-      "previousAdminRole",
-      ethereum.Value.fromFixedBytes(previousAdminRole)
-    )
-  )
-  roleAdminChangedEvent.parameters.push(
-    new ethereum.EventParam(
-      "newAdminRole",
-      ethereum.Value.fromFixedBytes(newAdminRole)
-    )
-  )
+  // roleAdminChangedEvent.parameters.push(
+  //   new ethereum.EventParam("role", ethereum.Value.fromFixedBytes(role))
+  // );
+  // roleAdminChangedEvent.parameters.push(
+  //   new ethereum.EventParam(
+  //     "previousAdminRole",
+  //     ethereum.Value.fromFixedBytes(previousAdminRole)
+  //   )
+  // );
+  // roleAdminChangedEvent.parameters.push(
+  //   new ethereum.EventParam(
+  //     "newAdminRole",
+  //     ethereum.Value.fromFixedBytes(newAdminRole)
+  //   )
+  // );
 
-  return roleAdminChangedEvent
+  return roleAdminChangedEvent;
 }
 
 export function createRoleGrantedEvent(
@@ -178,21 +180,21 @@ export function createRoleGrantedEvent(
   account: Address,
   sender: Address
 ): RoleGranted {
-  let roleGrantedEvent = changetype<RoleGranted>(newMockEvent())
+  const roleGrantedEvent = changetype<RoleGranted>(newMockEvent());
 
-  roleGrantedEvent.parameters = new Array()
+  // roleGrantedEvent.parameters = new Array();
 
-  roleGrantedEvent.parameters.push(
-    new ethereum.EventParam("role", ethereum.Value.fromFixedBytes(role))
-  )
-  roleGrantedEvent.parameters.push(
-    new ethereum.EventParam("account", ethereum.Value.fromAddress(account))
-  )
-  roleGrantedEvent.parameters.push(
-    new ethereum.EventParam("sender", ethereum.Value.fromAddress(sender))
-  )
+  // roleGrantedEvent.parameters.push(
+  //   new ethereum.EventParam("role", ethereum.Value.fromFixedBytes(role))
+  // );
+  // roleGrantedEvent.parameters.push(
+  //   new ethereum.EventParam("account", ethereum.Value.fromAddress(account))
+  // );
+  // roleGrantedEvent.parameters.push(
+  //   new ethereum.EventParam("sender", ethereum.Value.fromAddress(sender))
+  // );
 
-  return roleGrantedEvent
+  return roleGrantedEvent;
 }
 
 export function createRoleRevokedEvent(
@@ -200,19 +202,19 @@ export function createRoleRevokedEvent(
   account: Address,
   sender: Address
 ): RoleRevoked {
-  let roleRevokedEvent = changetype<RoleRevoked>(newMockEvent())
+  const roleRevokedEvent = changetype<RoleRevoked>(newMockEvent());
 
-  roleRevokedEvent.parameters = new Array()
+  // roleRevokedEvent.parameters = new Array();
 
-  roleRevokedEvent.parameters.push(
-    new ethereum.EventParam("role", ethereum.Value.fromFixedBytes(role))
-  )
-  roleRevokedEvent.parameters.push(
-    new ethereum.EventParam("account", ethereum.Value.fromAddress(account))
-  )
-  roleRevokedEvent.parameters.push(
-    new ethereum.EventParam("sender", ethereum.Value.fromAddress(sender))
-  )
+  // roleRevokedEvent.parameters.push(
+  //   new ethereum.EventParam("role", ethereum.Value.fromFixedBytes(role))
+  // );
+  // roleRevokedEvent.parameters.push(
+  //   new ethereum.EventParam("account", ethereum.Value.fromAddress(account))
+  // );
+  // roleRevokedEvent.parameters.push(
+  //   new ethereum.EventParam("sender", ethereum.Value.fromAddress(sender))
+  // );
 
-  return roleRevokedEvent
+  return roleRevokedEvent;
 }
