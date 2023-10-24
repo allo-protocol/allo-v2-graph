@@ -17,7 +17,7 @@
     "prepare:base": "mustache config/base.json subgraph.template.yaml > subgraph.yaml"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "^0.54.0",
+    "@graphprotocol/graph-cli": "^0.60.0",
     "@graphprotocol/graph-ts": "^0.31.0",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^6.2.1",

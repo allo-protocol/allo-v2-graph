@@ -1,7 +1,7 @@
 # Allo Graph v2 Deployment Checklist
 
-#### 🔗 Supported chains to deploy 🔗
-Run through the deploy checklist for each supported network.
+### 🔗 Supported chains to deploy 🔗
+#### Run through the deploy checklist for each supported network.
 - [ ] Ethereum Mainnet
 - [ ] Optimism
 - [ ] Base
@@ -11,9 +11,18 @@ Run through the deploy checklist for each supported network.
 - [ ] ZKSync Era
 - [ ] Celo
 
-#### 📝 Deployment Checklist 📝
+### 📝 Deployment Checklist 📝
 
-<!-- TODO: -->
+#### 💎 Pre-Deploy Hard Requirements 💎
+
+- [ ] All tests must pass.
+- [ ] Make sure all the ABI files have been updated from the latest deployed contracts on respected network. 
+- [ ] Make sure the `subgraph.template.yaml` has been updated with the latest event signatures from the latest contracts.
+- [ ] Update all configs in `config/` folder with the latest contract addresses and block numbers for respective network.
+
+🚨 The deployment will not work if the above requirements are not met. 🚨
+
+
 #### Deploy Checklist
 - [ ] Remove any old files that may interfere with the generation of the subgraph
 ```shell
@@ -41,13 +50,21 @@ graph deploy --product hosted-service <GITHUB_USER>/<SUBGRAPH_NAME>
 ```
 
 - [ ] Local or Custom Node Deployment - 🚨 This will be used for PGN
+- [ ] Create the subgraph **only for the first time**
 ```shell
-# Create the subgraph
-# graph create allo-protocol/allo --node http://localhost:8020/
-graph graph create <GITHUB_USER>/<SUBGRAPH_NAME> --node <NODE_URL>
+# Local deployment
+graph create allo-protocol/allo-v2 --node http://localhost:8020/
 
-# Deploy the subgraph
-# graph deploy  --node http://localhost:8020/ --ipfs http://localhost:5001/  gitcoin/allo ./subgraph.yaml
+# Custom node deployment
+graph graph create <GITHUB_USER>/<SUBGRAPH_NAME> --node <NODE_URL>
+```
+
+- [ ] Deploy the subgraph
+```shell
+# Local deployment
+graph deploy  --node http://localhost:8020/ --ipfs http://localhost:5001/  gitcoin/allo ./subgraph.yaml
+
+# Custom node deployment
 graph deploy  --node <NODE_URL> --ipfs <IPFS_URL>  <GITHUB_USER>/<SUBGRAPH_NAME> ./subgraph.yaml
 ```
 
