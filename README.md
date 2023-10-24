@@ -4,9 +4,17 @@ https://thegraph.com/docs/en/deploying/deploying-a-subgraph-to-hosted/#using-gra
 
 **Supported Networks**
 
-| network        |
-|----------------|
-| goerli         |
+| Network         | Playground | API Endpoint |
+|-----------------|------------|--------------|
+| mainnet         | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo) |
+| goerli          | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-goerli) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-goerli) |
+| optimism        | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-optimism) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-optimism) |
+| base            | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-base) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-base) |
+| arbitrum        | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-arbitrum) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-arbitrum) |
+| pgn             | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-pgn) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-pgn) |
+| polygon         | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-polygon) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-polygon) |
+| celo            | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-celo) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-celo) |
+| zksync-era      | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-zksync-era) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-zksync-era) |
 
 
 ## Deploy

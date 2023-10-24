@@ -7,7 +7,14 @@
     "codegen": "graph codegen",
     "build": "graph build",
     "test": "graph test",
-    "prepare:goerli": "mustache config/goerli.json subgraph.template.yaml > subgraph.yaml"
+    "prepare:goerli": "mustache config/goerli.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:optimism": "mustache config/optimism.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:pgn": "mustache config/pgn.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:polygon": "mustache config/polygon.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:zk-era": "mustache config/zk-era.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:celo": "mustache config/celo.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:base": "mustache config/base.json subgraph.template.yaml > subgraph.yaml"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "^0.54.0",
