@@ -10,11 +10,19 @@
     "prepare:goerli": "mustache config/goerli.json subgraph.template.yaml > subgraph.yaml",
     "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
     "prepare:optimism": "mustache config/optimism.json subgraph.template.yaml > subgraph.yaml",
-    "prepare:pgn": "mustache config/pgn.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:optimism-goerli": "mustache config/optimism-goerli.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:pgn": "mustache config/pgn-mainnet.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:pgn-testnet": "mustache config/pgn-testnet.json subgraph.template.yaml > subgraph.yaml",
     "prepare:polygon": "mustache config/polygon.json subgraph.template.yaml > subgraph.yaml",
-    "prepare:zk-era": "mustache config/zk-era.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:mumbai": "mustache config/mumbai.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:zksync-era": "mustache config/zksync-era.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:zksync2-testnet": "mustache config/zksync2-testnet.json subgraph.template.yaml > subgraph.yaml",
     "prepare:celo": "mustache config/celo.json subgraph.template.yaml > subgraph.yaml",
-    "prepare:base": "mustache config/base.json subgraph.template.yaml > subgraph.yaml"
+    "prepare:celo-alfajores": "mustache config/celo-alfajores.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:base": "mustache config/base.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:base-testnet": "mustache config/base-testnet.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:arbitrum-goerli": "mustache config/arbitrum-goerli.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:arbitrum-one": "mustache config/arbitrum-one.json subgraph.template.yaml > subgraph.yaml"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "^0.60.0",

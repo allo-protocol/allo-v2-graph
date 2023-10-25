@@ -1,6 +1,6 @@
 {
   "network": "arbitrum-goerli",
   "startBlock": 35766900,
-  "registryAddress": "",
-  "alloAddress": ""
+  "registryAddress": "0xdF0dc5829c922ADbA563F3f886EfE8BFC2e545c5",
+  "alloAddress": "0xc1442343E9A68EB4F48e78Ad44269DdDf7Fd6854"
 }
