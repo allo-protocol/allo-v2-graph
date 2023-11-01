@@ -1,0 +1,6 @@
+{
+  "network": "hardhat",
+  "startBlock": 0,
+  "registryAddress": "",
+  "alloAddress": ""
+}
