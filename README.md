@@ -16,6 +16,12 @@ https://thegraph.com/docs/en/deploying/deploying-a-subgraph-to-hosted/#using-gra
 | celo            | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-celo) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-celo) |
 | zksync-era      | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-zksync-era) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-zksync-era) |
 
+**Supported Test Networks**
+
+| Network         | Playground | API Endpoint |
+|-----------------|------------|--------------|
+| arbitrum-sepolia| [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-arbitrum-sepolia) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-arbitrum-sepolia) |
+
 
 ## Deploy
 
@@ -60,14 +66,14 @@ Use this example where we deploy the subgraph on goerli
 
 ```shell
 # Hosted Service
-rm -rf generated && rm -rf build &&
+rm -rf generated && rm -rf build && rm -rf subgraph.yaml &&
     yarn run prepare:goerli &&
     graph codegen &&
     graph auth --product hosted-service <YOUR_API_KEY> &&
     graph deploy --product hosted-service <GITHUB_USER>/<SUBGRAPH_NAME>
 
 # Studio
-rm -rf generated && rm -rf build &&
+rm -rf generated && rm -rf build && rm -rf subgraph.yaml &&
     yarn run prepare:goerli &&
     graph codegen &&
     graph auth --product studio <YOUR_API_KEY> &&
