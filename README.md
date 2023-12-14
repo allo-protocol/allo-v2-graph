@@ -6,15 +6,21 @@ https://thegraph.com/docs/en/deploying/deploying-a-subgraph-to-hosted/#using-gra
 
 | Network         | Playground | API Endpoint |
 |-----------------|------------|--------------|
-| mainnet         | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo) |
-| goerli          | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-goerli) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-goerli) |
-| optimism        | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-optimism) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-optimism) |
-| base            | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-base) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-base) |
-| arbitrum        | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-arbitrum) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-arbitrum) |
-| pgn             | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-pgn) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-pgn) |
-| polygon         | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-polygon) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-polygon) |
-| celo            | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-celo) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-celo) |
-| zksync-era      | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-zksync-era) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-zksync-era) |
+| mainnet         | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-mainnet) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-mainnet) |
+| goerli          | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-goerli) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-goerli) |
+| optimism        | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-optimism) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-optimism) |
+| base            | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-base) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-base) |
+| arbitrum        | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-arbitrum) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-arbitrum) |
+| pgn             | [🔗](todo) | [🔗](todo) |
+| polygon         | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-polygon) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-polygon) |
+| celo            | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-celo) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-celo) |
+| zksync-era      | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-zksync-era) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-zksync-era) |
+
+**Supported Test Networks**
+
+| Network         | Playground | API Endpoint |
+|-----------------|------------|--------------|
+| arbitrum-sepolia| [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-arbitrum-sepolia) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-arbitrum-sepolia) |
 
 
 ## Deploy
@@ -60,14 +66,14 @@ Use this example where we deploy the subgraph on goerli
 
 ```shell
 # Hosted Service
-rm -rf generated && rm -rf build &&
+rm -rf generated && rm -rf build && rm -rf subgraph.yaml &&
     yarn run prepare:goerli &&
     graph codegen &&
     graph auth --product hosted-service <YOUR_API_KEY> &&
     graph deploy --product hosted-service <GITHUB_USER>/<SUBGRAPH_NAME>
 
 # Studio
-rm -rf generated && rm -rf build &&
+rm -rf generated && rm -rf build && rm -rf subgraph.yaml &&
     yarn run prepare:goerli &&
     graph codegen &&
     graph auth --product studio <YOUR_API_KEY> &&
