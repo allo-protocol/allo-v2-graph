@@ -1,6 +1,6 @@
 {
   "network": "arbitrum-sepolia",
-  "startBlock": 0,
-  "registryAddress": "",
-  "alloAddress": ""
+  "startBlock": 2836000,
+  "registryAddress": "0x4AAcca72145e1dF2aeC137E1f3C5E3D75DB8b5f3",
+  "alloAddress": "0x1133eA7Af70876e64665ecD07C0A0476d09465a1"
 }
