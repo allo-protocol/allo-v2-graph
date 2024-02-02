@@ -15,6 +15,7 @@ https://thegraph.com/docs/en/deploying/deploying-a-subgraph-to-hosted/#using-gra
 | polygon         | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-polygon) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-polygon) |
 | celo            | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-celo) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-celo) |
 | zksync-era      | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-zksync-era) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-zksync-era) |
+| sepolia        | [🔗](https://thegraph.com/explorer/subgraph/allo-protocol/allo-v2-sepolia) | [🔗](https://api.thegraph.com/subgraphs/name/allo-protocol/allo-v2-sepolia) |
 
 **Supported Test Networks**
 
